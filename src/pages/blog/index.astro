@@ -1,0 +1,96 @@
+---
+import "../../styles/global.css";
+import Layout from "../../layouts/Layout.astro";
+import type { MarkdownInstance } from "astro";
+import BlogCard from "../../components/blog/BlogCard.astro";
+
+const allPostFiles = import.meta.glob("../../content/blogs/*.md", { eager: true });
+
+type Frontmatter = {
+  title: string;
+  slug: string;
+  author: string;
+  mainImage: string;
+  alt: string;
+  categories: string[];
+  publishedAt: string;
+  language: string;
+  excerpt?: string;
+};
+
+type PostEntry = {
+  slug: string;
+  frontmatter: Frontmatter;
+};
+
+const posts: PostEntry[] = Object.entries(allPostFiles).map(([filePath, module]) => {
+  const { frontmatter } = module as MarkdownInstance<Frontmatter>;
+  const filename = filePath.split("/").pop()!;
+  const derivedSlug = filename.replace(/\.md$/, "");
+  const slug = frontmatter.slug || derivedSlug;
+
+  return {
+    slug,
+    frontmatter: {
+      title: frontmatter.title,
+      slug,
+      author: frontmatter.author,
+      mainImage: frontmatter.mainImage,
+      alt: frontmatter.alt,
+      categories: frontmatter.categories,
+      publishedAt: frontmatter.publishedAt,
+      language: frontmatter.language,
+      excerpt: frontmatter.excerpt,
+    },
+  };
+});
+
+posts.sort(
+  (a, b) =>
+    new Date(b.frontmatter.publishedAt).getTime() -
+    new Date(a.frontmatter.publishedAt).getTime()
+);
+---
+
+<Layout>
+  <div class="bg-[var(--background)] py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2
+          class="text-4xl font-semibold tracking-tight text-[var(--foreground)] sm:text-5xl
+                 opacity-0 animate-fade-in"
+        >
+          Nuestro Blog
+        </h2>
+        <p
+          class="mt-2 text-lg text-[var(--muted-foreground)]
+                 opacity-0 animate-fade-in-delay-200"
+        >
+          Descubre las últimas entradas, tutoriales y noticias sobre Astro, Solid y más.
+        </p>
+      </div>
+
+      <div
+        class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20
+               lg:mx-0 lg:max-w-none lg:grid-cols-3"
+      >
+        {posts.map(({ slug, frontmatter }, idx) => {
+          const post = {
+            title: frontmatter.title,
+            href: `/blog/${slug}`,
+            publishedAt: frontmatter.publishedAt,
+            categories: frontmatter.categories,
+            mainImage: frontmatter.mainImage,
+            alt: frontmatter.alt,
+            author: frontmatter.author,
+            excerpt: frontmatter.excerpt,
+          };
+
+          const delay = idx === 0 ? 0 : idx * 200;
+
+          return <BlogCard post={post} delay={delay} />;
+        })}
+      </div>
+    </div>
+  </div>
+</Layout>

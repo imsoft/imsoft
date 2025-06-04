@@ -1,0 +1,51 @@
+---
+import "../../styles/global.css";
+import Layout from "../../layouts/Layout.astro";
+import { porfolios } from "../../data/portfolio";
+import PortfolioCard from "../../components/portfolio/PortfolioCard.astro";
+---
+
+<Layout>
+  <div class="bg-[var(--background)] py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2
+          class="text-4xl font-semibold tracking-tight text-[var(--foreground)] sm:text-5xl
+                 opacity-0 animate-fade-in"
+        >
+          Proyectos que Transforman Negocios
+        </h2>
+        <p
+          class="mt-2 text-lg text-[var(--muted-foreground)]
+                 opacity-0 animate-fade-in-delay-200"
+        >
+          Descubre cómo hemos ayudado a empresas a crecer con soluciones
+          digitales innovadoras. Cada proyecto es una historia de éxito hecha
+          con tecnología, estrategia y pasión.
+        </p>
+      </div>
+
+      <div
+        class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20
+               lg:mx-0 lg:max-w-none lg:grid-cols-3"
+      >
+        {porfolios.map((porfolio, idx) => {
+          const delays = [
+            "animate-fade-in-delay-400",
+            "animate-fade-in-delay-600",
+            "animate-fade-in-delay-800",
+            "animate-fade-in-delay-1000",
+            "animate-fade-in-delay-1200",
+          ];
+          const delayClass = delays[idx % delays.length];
+
+          return (
+            <div class={`opacity-0 ${delayClass}`}>
+              <PortfolioCard portfolio={porfolio} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</Layout>

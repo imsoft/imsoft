@@ -1,0 +1,113 @@
+---
+import "../../../styles/global.css";
+import Layout from "../../../layouts/Layout.astro";
+import type { ServiceTemplateProps } from "../../../components/service/ServiceTemplate.astro";
+import ServiceTemplate from "../../../components/service/ServiceTemplate.astro";
+
+const serviceData: ServiceTemplateProps = {
+  imageUrl:
+    "https://res.cloudinary.com/https-imsoft-io/image/upload/v1706595026/imsoft-images/services/sitio-web-imsoft.jpg",
+  alt: "Servicio de Desarrollo de Sitios Web - imSoft",
+  title: "Servicio de Desarrollo de Sitios Web",
+  subtitle:
+    "Creamos sitios web veloces, seguros y optimizados para convertir visitantes en clientes.",
+  descriptions: [
+    "En imSoft diseñamos y desarrollamos sitios web profesionales que destacan tu marca y mejoran la experiencia de usuario en todos los dispositivos.",
+    "Nuestro enfoque combina diseño responsive, estándares de SEO on-page y prácticas de seguridad para ofrecer proyectos robustos que impulsen tu presencia online y aumenten tus ventas.",
+  ],
+  primaryActionText: "Solicitar Cotización",
+  primaryActionHref: `mailto:sales@imsoft.io?subject=${encodeURIComponent(
+    "Cotización: Servicio de Desarrollo de Sitios Web"
+  )}&body=${encodeURIComponent(
+    "Hola equipo de imSoft,%0A%0AMe interesa recibir una cotización para el Servicio de Desarrollo de Sitios Web.%0APor favor, envíenme detalles sobre paquetes, funcionalidades y tiempos estimados.%0A%0AGracias."
+  )}`,
+
+  secondaryActionText: "Ver Casos de Éxito",
+  secondaryActionHref: "/portafolio",
+  features: [
+    { text: "Diseño responsive adaptado a móviles, tablets y desktop" },
+    { text: "Optimización SEO on-page: meta tags, velocidad y accesibilidad" },
+    { text: "Integración con CMS (Headless, WordPress, Strapi, etc.)" },
+    {
+      text: "Configuración de seguridad: HTTPS, protección contra ataques XSS/CSRF",
+    },
+    {
+      text: "Implementación de analítica y métricas (Google Analytics, Tag Manager)",
+    },
+  ],
+  methodologySteps: [
+    {
+      title: "Definición de Requerimientos",
+      description:
+        "Recopilamos objetivos de negocio, público objetivo y funcionalidades clave para tu sitio web.",
+    },
+    {
+      title: "Diseño UI/UX",
+      description:
+        "Creamos wireframes y mockups que validan la estructura de navegación y la experiencia de usuario.",
+    },
+    {
+      title: "Desarrollo Frontend",
+      description:
+        "Implementamos el diseño con tecnologías modernas (HTML5, CSS3, Tailwind CSS, JavaScript o frameworks como Next.js) para garantizar velocidad y rendimiento.",
+    },
+    {
+      title: "Desarrollo Backend",
+      description:
+        "Configuramos el CMS o construimos la API necesaria (Node.js, Laravel o la tecnología que mejor se adapte) para gestionar contenidos de forma sencilla.",
+    },
+    {
+      title: "Pruebas y QA",
+      description:
+        "Realizamos pruebas de usabilidad, compatibilidad en navegadores y optimización de carga para asegurar estabilidad y rendimiento.",
+    },
+    {
+      title: "Despliegue y Mantenimiento",
+      description:
+        "Publicamos el sitio en producción (Vercel, Netlify, AWS, etc.) y ofrecemos planes de mantenimiento para actualizaciones de contenido y seguridad.",
+    },
+  ],
+  faqs: [
+    {
+      question: "¿Qué diferencia hay entre un sitio estático y uno dinámico?",
+      answer:
+        "Un sitio estático entrega HTML pregenerado, ideal para landing pages y portfolios. Un sitio dinámico utiliza un backend o CMS para generar contenido según demanda, facilitando actualizaciones frecuentes y funcionalidades avanzadas.",
+    },
+    {
+      question: "¿Cómo optimizan la velocidad de carga?",
+      answer:
+        "Implementamos lazy-loading de imágenes, minificación de recursos, uso de CDN y compresión GZIP/ Brotli. También optimizamos el renderizado mediante prerendering o SSR (Server-Side Rendering) cuando es necesario.",
+    },
+    {
+      question: "¿Incluyen optimización SEO desde el inicio?",
+      answer:
+        "Sí. Desde la configuración de meta etiquetas, schemas y sitemap.xml hasta la optimización de estructura semántica y enlaces internos, seguimos mejores prácticas para mejorar tu posicionamiento orgánico.",
+    },
+    {
+      question: "¿Qué CMS recomiendan para administrar contenido?",
+      answer:
+        "Dependiendo de tus necesidades, recomendamos soluciones headless como Strapi o Sanity para máxima flexibilidad, o WordPress si requieres un panel de administración familiar. Podemos asesorarte según tu flujo de trabajo.",
+    },
+    {
+      question: "¿Cómo garantizan la seguridad del sitio?",
+      answer:
+        "Aplicamos HTTPS obligatorio, protección contra inyecciones de código, validación de formularios y reglas de firewall en el servidor. Además, integramos actualizaciones automáticas y monitoreo de vulnerabilidades.",
+    },
+    {
+      question: "¿Cuál es el tiempo estimado para un proyecto web estándar?",
+      answer:
+        "Para un sitio institucional con hasta 10 páginas y funcionalidades básicas (blog, formulario de contacto), el tiempo aproximado es de 6 a 8 semanas. Proyectos con e-commerce o integraciones complejas pueden durar entre 10 y 14 semanas.",
+    },
+    {
+      question:
+        "¿Ofrecen soporte y actualizaciones posteriores al lanzamiento?",
+      answer:
+        "Sí. Tenemos planes de mantenimiento mensual para correcciones, actualización de plugins y mejoras continuas. También brindamos asistencia para añadir nuevas secciones o funcionalidades según crezca tu negocio.",
+    },
+  ],
+};
+---
+
+<Layout>
+  <ServiceTemplate {...serviceData} />
+</Layout>

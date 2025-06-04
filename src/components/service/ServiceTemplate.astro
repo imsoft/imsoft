@@ -1,0 +1,331 @@
+---
+export interface Feature {
+  text: string;
+}
+
+export interface MethodStep {
+  title: string;
+  description: string;
+}
+
+export interface FAQ {
+  question: string;
+  answer: string;
+}
+
+export interface ServiceTemplateProps {
+  imageUrl: string;
+  alt: string;
+  title: string;
+  subtitle: string;
+  descriptions: string[];
+  primaryActionText: string;
+  primaryActionHref: string;
+  secondaryActionText?: string;
+  secondaryActionHref?: string;
+  features: Feature[];
+  methodologySteps: MethodStep[];
+  faqs: FAQ[];
+}
+
+const {
+  imageUrl,
+  alt,
+  title,
+  subtitle,
+  descriptions,
+  primaryActionText,
+  primaryActionHref,
+  secondaryActionText,
+  secondaryActionHref,
+  features,
+  methodologySteps,
+  faqs,
+} = Astro.props as ServiceTemplateProps;
+---
+
+<div class="bg-[var(--background)] text-[var(--foreground)]">
+  <div class="mx-auto px-4 py-16 sm:px-6 sm:py-12 lg:max-w-7xl lg:px-8">
+    <div class="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10">
+      <div class="lg:col-span-4 lg:row-end-1">
+        <img
+          src={imageUrl}
+          alt={alt}
+          loading="lazy"
+          class="aspect-4/3 w-full rounded-lg bg-[var(--card)] object-cover opacity-0 animate-fade-in"
+        />
+      </div>
+
+      <div
+        class="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none opacity-0 animate-fade-in-delay-200"
+      >
+        <div class="flex flex-col-reverse">
+          <div class="mt-4">
+            <h1
+              class="text-2xl font-bold tracking-tight text-[var(--foreground)] sm:text-3xl opacity-0 animate-fade-in-delay-400"
+            >
+              {title}
+            </h1>
+            <h2 id="information-heading" class="sr-only">
+              Información del servicio
+            </h2>
+            <p
+              class="mt-2 text-sm text-[var(--muted-foreground)] opacity-0 animate-fade-in-delay-600"
+            >
+              {subtitle}
+            </p>
+          </div>
+        </div>
+
+        {
+          descriptions.map((text, idx) => {
+            const delayClass =
+              idx === 0
+                ? "animate-fade-in-delay-800"
+                : idx === 1
+                  ? "animate-fade-in-delay-1000"
+                  : "animate-fade-in-delay-1200";
+            return (
+              <p
+                class={`mt-6 text-[var(--muted-foreground)] opacity-0 ${delayClass}`}
+              >
+                {text}
+              </p>
+            );
+          })
+        }
+
+        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+          <a
+            href={primaryActionHref}
+            class="flex w-full items-center justify-center rounded-md bg-[var(--primary)] px-4 py-2 text-sm font-medium text-white  hover:bg-[var(--primary-foreground)] hover:text-[var(--sidebar-foreground)] focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--background)] focus:outline-none opacity-0 animate-fade-in-delay-800"
+          >
+            {primaryActionText}
+          </a>
+
+          {
+            secondaryActionText && secondaryActionHref && (
+              <a
+                href={secondaryActionHref}
+                class="flex w-full items-center justify-center rounded-md bg-[var(--secondary)] px-4 py-2 text-sm font-medium text-[var(--secondary-foreground)] hover:bg-[var(--secondary-foreground)] hover:text-[var(--secondary)] focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--background)] focus:outline-none opacity-0 animate-fade-in-delay-1000"
+              >
+                {secondaryActionText}
+              </a>
+            )
+          }
+        </div>
+
+        <div class="mt-10 border-t border-[var(--border)] pt-10">
+          <h3
+            class="text-sm font-medium text-[var(--foreground)] opacity-0 animate-fade-in-delay-1200"
+          >
+            Características Clave
+          </h3>
+          <div class="mt-4">
+            <ul
+              role="list"
+              class="list-disc space-y-1 pl-5 text-sm text-[var(--muted-foreground)] marker:text-[var(--border)]"
+            >
+              {
+                features.map((feature, idx) => {
+                  const delayClass =
+                    idx === 0
+                      ? "animate-fade-in-delay-800"
+                      : idx === 1
+                        ? "animate-fade-in-delay-1000"
+                        : "animate-fade-in-delay-1200";
+                  return (
+                    <li class={`pl-2 opacity-0 ${delayClass}`}>
+                      {feature.text}
+                    </li>
+                  );
+                })
+              }
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-10 border-t border-[var(--border)] pt-10">
+          <h3
+            class="text-sm font-medium text-[var(--foreground)] opacity-0 animate-fade-in-delay-800"
+          >
+            Nuestra Metodología
+          </h3>
+          <div class="mt-4 text-sm text-[var(--muted-foreground)]">
+            <p class="opacity-0 animate-fade-in-delay-1000">
+              En imSoft aplicamos un proceso de <strong
+                >{title.toLowerCase()}</strong
+              > basado en {methodologySteps.length} etapas:
+            </p>
+            <ul class="list-disc pl-5 mt-2 space-y-1">
+              {
+                methodologySteps.map((step, idx) => {
+                  const delayClass =
+                    idx === 0
+                      ? "animate-fade-in-delay-800"
+                      : idx === 1
+                        ? "animate-fade-in-delay-1000"
+                        : "animate-fade-in-delay-1200";
+                  return (
+                    <li class={`opacity-0 ${delayClass}`}>
+                      <strong class="text-[var(--foreground)]">
+                        {step.title}:
+                      </strong>{" "}
+                      <span class="text-[var(--muted-foreground)]">
+                        {step.description}
+                      </span>
+                    </li>
+                  );
+                })
+              }
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-10 border-t border-[var(--border)] pt-10">
+          <h3
+            class="text-sm font-medium text-[var(--foreground)] opacity-0 animate-fade-in-delay-800"
+          >
+            Comparte este servicio
+          </h3>
+          <ul role="list" class="mt-4 flex items-center space-x-6">
+            {/* Facebook */}
+            <li class="opacity-0 animate-fade-in-delay-1000">
+              <a
+                href="#"
+                class="flex h-6 w-6 items-center justify-center text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+                onclick="window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href),
+                  '_blank',
+                  'width=600,height=400'
+                ); return false;"
+              >
+                <span class="sr-only">Compartir en Facebook</span>
+                <img
+                  src="/icons/facebook.svg"
+                  loading="lazy"
+                  alt="Logo de Facebook"
+                  class="h-5 w-5 fill-current text-[var(--foreground)]"
+                />
+              </a>
+            </li>
+
+            {/* X (antes Twitter) */}
+            <li class="opacity-0 animate-fade-in-delay-1200">
+              <a
+                href="#"
+                class="flex h-6 w-6 items-center justify-center text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+                onclick="window.open(
+                  'https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href),
+                  '_blank',
+                  'width=600,height=400'
+                ); return false;"
+              >
+                <span class="sr-only">Compartir en X</span>
+                <img
+                  src="/icons/x.svg"
+                  loading="lazy"
+                  alt="Logo de X"
+                  class="h-5 w-5 fill-current text-[var(--foreground)]"
+                />
+              </a>
+            </li>
+
+            {/* LinkedIn */}
+            <li class="opacity-0 animate-fade-in-delay-800">
+              <a
+                href="#"
+                class="flex h-6 w-6 items-center justify-center text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+                onclick="window.open(
+                  'https://www.linkedin.com/shareArticle?mini=true&url=' +
+                    encodeURIComponent(window.location.href) +
+                    '&title=' +
+                    encodeURIComponent(document.title),
+                  '_blank',
+                  'width=600,height=400'
+                ); return false;"
+              >
+                <span class="sr-only">Compartir en LinkedIn</span>
+                <img
+                  src="/icons/linkedin.svg"
+                  loading="lazy"
+                  alt="Logo de LinkedIn"
+                  class="h-5 w-5 fill-current text-[var(--foreground)]"
+                />
+              </a>
+            </li>
+
+            {/* WhatsApp */}
+            <li class="opacity-0 animate-fade-in-delay-1000">
+              <a
+                href="#"
+                class="flex h-6 w-6 items-center justify-center text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+                onclick="window.open(
+                  'https://api.whatsapp.com/send?text=' +
+                    encodeURIComponent(document.title + ' ' + window.location.href),
+                  '_blank'
+                ); return false;"
+              >
+                <span class="sr-only">Compartir en WhatsApp</span>
+                <img
+                  src="/icons/whatsapp.svg"
+                  loading="lazy"
+                  alt="Logo de WhatsApp"
+                  class="h-5 w-5 fill-current text-[var(--foreground)]"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        class="mx-auto mt-16 w-full max-w-2xl lg:col-span-4 lg:mt-0 lg:max-w-none opacity-0 animate-fade-in-delay-1200"
+      >
+        <div>
+          <div
+            id="tab-panel-faq"
+            class="text-sm text-[var(--muted-foreground)]"
+            aria-labelledby="tab-faq"
+            role="tabpanel"
+            tabindex="0"
+          >
+            <h3 class="sr-only">Preguntas Frecuentes</h3>
+            <dl>
+              {
+                faqs.map((item, idx) => {
+                  const questionDelay =
+                    idx % 3 === 0
+                      ? "animate-fade-in-delay-800"
+                      : idx % 3 === 1
+                        ? "animate-fade-in-delay-1000"
+                        : "animate-fade-in-delay-1200";
+                  const answerDelay =
+                    idx % 3 === 0
+                      ? "animate-fade-in-delay-1000"
+                      : idx % 3 === 1
+                        ? "animate-fade-in-delay-1200"
+                        : "animate-fade-in-delay-800";
+                  return (
+                    <>
+                      <dt
+                        class={`mt-10 font-medium text-[var(--foreground)] opacity-0 ${questionDelay}`}
+                      >
+                        {item.question}
+                      </dt>
+                      <dd
+                        class={`mt-2 text-sm text-[var(--muted-foreground)] opacity-0 ${answerDelay}`}
+                      >
+                        {item.answer}
+                      </dd>
+                    </>
+                  );
+                })
+              }
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

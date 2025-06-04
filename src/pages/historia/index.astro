@@ -1,0 +1,142 @@
+---
+import "../../styles/global.css";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="bg-[var(--background)] py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+        <p
+          class="
+            text-base/7 
+            font-semibold 
+            text-[var(--primary)] 
+            opacity-0 
+            animate-fade-in
+          "
+        >
+          Nuestra historia
+        </p>
+
+        <h1
+          class="
+            mt-2 
+            text-4xl 
+            font-semibold 
+            tracking-tight 
+            text-[var(--foreground)] 
+            sm:text-5xl 
+            opacity-0 
+            animate-fade-in-delay-200
+          "
+        >
+          Innovación con propósito, tecnología con impacto
+        </h1>
+
+        <div
+          class="
+            mt-10 
+            grid 
+            max-w-xl 
+            grid-cols-1 
+            gap-8 
+            text-base/7 
+            text-[var(--muted-foreground)] 
+            lg:max-w-none 
+            lg:grid-cols-2
+          "
+        >
+          <div class="opacity-0 animate-fade-in-delay-400">
+            <p class="text-[var(--foreground)]">
+              imSoft nació con una visión clara: ayudar a empresas y
+              emprendedores a aprovechar la tecnología para crecer y destacar en
+              el mercado. Lo que comenzó como un sueño, pronto se convirtió en
+              un equipo apasionado por la innovación y la eficiencia digital.
+            </p>
+            <p class="mt-8 text-[var(--foreground)]">
+              Cada proyecto ha sido un desafío, pero también una oportunidad
+              para aprender, mejorar y crecer junto a nuestros clientes. Creemos
+              en la tecnología como un puente hacia nuevas oportunidades, y
+              nuestro compromiso es hacer que cada solución sea intuitiva,
+              eficiente y escalable.
+            </p>
+          </div>
+
+          <div class="opacity-0 animate-fade-in-delay-600">
+            <p class="text-[var(--foreground)]">
+              Desde el primer día, nos hemos enfocado en crear soluciones que
+              realmente marquen la diferencia. No solo desarrollamos software,
+              creamos herramientas que impulsan negocios y transforman ideas en
+              resultados reales.
+            </p>
+            <p class="mt-8 text-[var(--foreground)]">
+              El futuro de imSoft es claro: seguir innovando, seguir aprendiendo
+              y seguir creando soluciones digitales que ayuden a más negocios a
+              alcanzar su máximo potencial. Nos emociona lo que está por venir,
+              y queremos que seas parte de esta historia.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-10 flex opacity-0 animate-fade-in-delay-800">
+          <a
+            href="/contacto"
+            class="
+              rounded-md 
+              bg-[var(--primary)] 
+              px-3.5 
+              py-2.5 
+              text-sm 
+              font-semibold 
+              text-[var(--primary-foreground)] 
+              shadow-xs 
+              hover:bg-[var(--secondary)] 
+              focus-visible:outline-2 
+              focus-visible:outline-offset-2 
+              focus-visible:outline-[var(--primary)]
+              transition-colors 
+              duration-200
+            "
+          >
+            Sé parte de nuestra historia
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden pt-16 lg:pt-20">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <img
+          class="
+            mb-[-12%] 
+            rounded-xl 
+            shadow-2xl 
+            ring-1 
+            ring-gray-900/10 
+            opacity-0 
+            animate-fade-in-delay-1000
+          "
+          src="https://res.cloudinary.com/https-imsoft-io/image/upload/v1740207259/imsoft-images/pictures/historia-imsoft.jpg"
+          loading="lazy"
+          alt="Imagen de la historia de imSoft"
+        />
+
+        <div class="relative" aria-hidden="true">
+          <div
+            class="
+              absolute 
+              -inset-x-20 
+              bottom-0 
+              bg-linear-to-t 
+              from-white 
+              pt-[7%]
+              dark:from-[var(--background)]
+            "
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

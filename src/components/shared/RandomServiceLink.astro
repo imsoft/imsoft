@@ -1,0 +1,14 @@
+---
+import { randomServices } from "../../data/randomServices";
+
+const randomIndex = Math.floor(Math.random() * randomServices.length);
+const service = randomServices[randomIndex];
+---
+
+<p class="relative">
+  Descubre más sobre {service.label},{" "}
+  <a href={service.href} class="font-semibold text-blue-600 relative">
+    <span class="absolute inset-0" aria-hidden="true"></span>
+    {service.linkText}
+  </a>
+</p>

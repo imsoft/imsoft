@@ -1,0 +1,108 @@
+---
+import "../../../styles/global.css";
+import Layout from "../../../layouts/Layout.astro";
+import type { ServiceTemplateProps } from "../../../components/service/ServiceTemplate.astro";
+import ServiceTemplate from "../../../components/service/ServiceTemplate.astro";
+
+const serviceData: ServiceTemplateProps = {
+  imageUrl:
+    "https://res.cloudinary.com/https-imsoft-io/image/upload/v1706595026/imsoft-images/services/aplicacion-web-imsoft.jpg",
+  alt: "Servicio de Desarrollo de Aplicaciones Web - imSoft",
+  title: "Servicio de Aplicaciones Web",
+  subtitle:
+    "Automatiza y optimiza procesos con soluciones web personalizadas y escalables.",
+  descriptions: [
+    "En imSoft creamos aplicaciones web a medida que se adaptan a las necesidades específicas de tu negocio. Desde portales B2B hasta sistemas de gestión interna, nuestras soluciones garantizan rendimiento, seguridad y experiencia de usuario fluida.",
+    "Nuestro equipo combina diseño centrado en el usuario (UI/UX) con arquitecturas modernas (Next.js, React, Node.js) para entregar proyectos robustos. Cada etapa—desde el análisis de requerimientos hasta el despliegue—está optimizada para maximizar la eficiencia y el retorno de inversión.",
+  ],
+  primaryActionText: "Solicitar Cotización",
+  primaryActionHref: `mailto:sales@imsoft.io?subject=${encodeURIComponent(
+    "Cotización: Servicio de Aplicaciones Web"
+  )}&body=${encodeURIComponent(
+    "Hola equipo de imSoft,%0A%0AMe interesa recibir una cotización para el Servicio de Aplicaciones Web.%0APor favor, envíenme detalles sobre servicios, tarifas y plazos.%0A%0AGracias."
+  )}`,
+
+  secondaryActionText: "Ver Casos de Éxito",
+  secondaryActionHref: "/portafolio",
+  features: [
+    { text: "Desarrollo full-stack con Next.js, React y Node.js" },
+    {
+      text: "Arquitectura escalable basada en microservicios o monolitos optimizados",
+    },
+    { text: "Integración con APIs externas y plataformas de pago" },
+    {
+      text: "Optimización SEO on-page y performance web (Lighthouse score alto)",
+    },
+    { text: "Implementación de estándares de seguridad: JWT, HTTPS y OWASP" },
+  ],
+  methodologySteps: [
+    {
+      title: "Planeación y Requisitos",
+      description:
+        "Recopilamos objetivos de negocio, casos de uso y definimos la arquitectura adecuada para tu aplicación web.",
+    },
+    {
+      title: "Diseño UI/UX",
+      description:
+        "Creamos prototipos (wireframes) y mockups interactivos para garantizar una navegación intuitiva y atractiva en todos los dispositivos.",
+    },
+    {
+      title: "Desarrollo",
+      description:
+        "Codificamos con prácticas de calidad: código limpio, testing automatizado y revisión de pares. Elegimos tecnologías que favorecen escalabilidad y mantenibilidad.",
+    },
+    {
+      title: "Pruebas y QA",
+      description:
+        "Realizamos pruebas unitarias, de integración y de usabilidad en distintos navegadores y dispositivos para asegurar estabilidad y compatibilidad.",
+    },
+    {
+      title: "Despliegue y Mantenimiento",
+      description:
+        "Publicamos en entornos productivos (Vercel, AWS, etc.) y configuramos monitoreo continuo. Ofrecemos soporte para actualizaciones y nuevas funcionalidades.",
+    },
+  ],
+  faqs: [
+    {
+      question: "¿Qué frameworks utilizamos para el desarrollo web?",
+      answer:
+        "Trabajamos principalmente con Next.js y React en el frontend, y Node.js/Express o NestJS en el backend. Estas tecnologías nos permiten construir aplicaciones rápidas, seguras y fáciles de mantener.",
+    },
+    {
+      question: "¿Cómo garantizan la velocidad y rendimiento?",
+      answer:
+        "Implementamos SSR (Server-Side Rendering) con Next.js, optimización de imágenes, lazy-loading y técnicas de caching (CDN). Además, medimos con herramientas como Lighthouse para asegurar tiempos de carga mínimos.",
+    },
+    {
+      question: "¿Incluyen optimización SEO en el proyecto?",
+      answer:
+        "Sí. Configuramos meta etiquetas dinámicas, generamos sitemaps automáticos y aplicamos buenas prácticas de accesibilidad (WCAG). De esta manera, tu sitio web tendrá mejor visibilidad en buscadores.",
+    },
+    {
+      question: "¿Cómo manejan la seguridad de los datos?",
+      answer:
+        "Aplicamos HTTPS obligatorio, protección contra ataques XSS/CSRF, validación y sanitización de entradas en el backend, y autenticación basada en JWT. También establecemos roles y permisos según tus requisitos.",
+    },
+    {
+      question: "¿Cuál es el tiempo estimado de desarrollo?",
+      answer:
+        "Para una aplicación estándar (login, panel de control, CRUD de entidades) el tiempo estimado es de 10 a 14 semanas. Proyectos más complejos con integración de terceros pueden requerir de 16 a 20 semanas.",
+    },
+    {
+      question: "¿Qué costo aproximado tiene un proyecto web?",
+      answer:
+        "El costo varía según funcionalidades, complejidad y diseño. Proyectos básicos suelen oscilar entre $80,000 y $180,000 MXN. Para una cotización precisa, contáctanos y analizaremos tus necesidades detalladamente.",
+    },
+    {
+      question:
+        "¿Ofrecen soporte y actualizaciones posteriores al lanzamiento?",
+      answer:
+        "Sí. Disponemos de planes de mantenimiento mensuales que incluyen correcciones de errores, actualizaciones de dependencias y soporte para implementar mejoras continuas.",
+    },
+  ],
+};
+---
+
+<Layout>
+  <ServiceTemplate {...serviceData} />
+</Layout>

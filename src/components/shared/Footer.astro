@@ -1,0 +1,134 @@
+---
+import { currentYear } from "../../data/currentYear";
+import { footer } from "../../data/footer";
+import { socialMedia } from "../../data/socialMedia";
+import CtaLinks from "./CtaLinks.astro";
+
+const firstGroup = footer.slice(0, 2);
+const secondGroup = footer.slice(2, 4);
+---
+
+<footer class="bg-[var(--background)] text-[var(--foreground)]">
+  <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
+    <div class="mx-auto max-w-2xl text-center opacity-0 animate-fade-in">
+      <hgroup>
+        <h2
+          class="text-base/7 font-semibold text-[var(--primary)]
+                 opacity-0 animate-fade-in-delay-200"
+        >
+          Empieza hoy
+        </h2>
+        <p
+          class="mt-2 text-4xl font-semibold tracking-tight text-[var(--foreground)]
+                 sm:text-5xl opacity-0 animate-fade-in-delay-400"
+        >
+          Impulsa tu negocio con soluciones digitales efectivas.
+        </p>
+      </hgroup>
+      <p
+        class="mx-auto mt-6 max-w-xl text-lg/8 text-[var(--muted-foreground)]
+               opacity-0 animate-fade-in-delay-600"
+      >
+        Optimiza, automatiza y crece con tecnología diseñada para ti.
+      </p>
+      <div
+        class="mt-8 flex justify-center gap-x-6 opacity-0 animate-fade-in-delay-800"
+      >
+        <CtaLinks />
+      </div>
+    </div>
+
+    <div
+      class="mt-24 border-t border-[var(--border)] pt-12
+             xl:grid xl:grid-cols-3 xl:gap-8"
+    >
+      <img
+        class="h-16"
+        src="https://res.cloudinary.com/https-imsoft-io/image/upload/v1740963749/imsoft-images/imsoft/logo-imsoft-blue.png"
+        loading="lazy"
+        alt="imSoft Logo"
+      />
+
+      <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          {firstGroup.map((section) => (
+            <div>
+              <h3 class="text-sm/6 font-semibold text-[var(--foreground)]">
+                {section.title}
+              </h3>
+              <ul role="list" class="mt-6 space-y-4">
+                {section.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="text-sm/6 text-[var(--muted-foreground)]
+                             hover:text-[var(--foreground)] transition-colors duration-150"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          {secondGroup.map((section) => (
+            <div>
+              <h3 class="text-sm/6 font-semibold text-[var(--foreground)]">
+                {section.title}
+              </h3>
+              <ul role="list" class="mt-6 space-y-4">
+                {section.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="text-sm/6 text-[var(--muted-foreground)]
+                             hover:text-[var(--foreground)] transition-colors duration-150"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 border-t border-[var(--border)] pt-8 
+             md:flex md:items-center md:justify-between"
+    >
+      <div class="flex gap-x-6 md:order-2">
+        {socialMedia.map((item) => (
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group"
+            aria-label={item.name}
+          >
+            <div
+              class="
+                h-4 w-4 
+                transition duration-200
+                group-hover:opacity-80 group-hover:scale-110
+                text-[var(--foreground)] dark:text-[var(--muted-foreground)]
+              "
+              style={`
+                mask: url('${item.icon}') no-repeat center/contain;
+                -webkit-mask: url('${item.icon}') no-repeat center/contain;
+                background-color: currentColor;
+              `}
+            />
+          </a>
+        ))}
+      </div>
+      <p class="mt-8 text-sm/6 text-[var(--muted-foreground)] md:order-1 md:mt-0">
+        &copy; {currentYear} imSoft. Todos los derechos reservados.
+      </p>
+    </div>
+  </div>
+</footer>

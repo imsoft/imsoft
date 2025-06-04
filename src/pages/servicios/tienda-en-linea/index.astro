@@ -1,0 +1,99 @@
+---
+import "../../../styles/global.css";
+import Layout from "../../../layouts/Layout.astro";
+import type { ServiceTemplateProps } from "../../../components/service/ServiceTemplate.astro";
+import ServiceTemplate from "../../../components/service/ServiceTemplate.astro";
+
+const serviceData: ServiceTemplateProps = {
+  imageUrl:
+    "https://res.cloudinary.com/https-imsoft-io/image/upload/v1706595027/imsoft-images/services/tienda-en-linea-imsoft.jpg",
+  alt: "Servicio de Desarrollo de Tienda en Línea - imSoft",
+  title: "Servicio de Tienda en Línea",
+  subtitle:
+    "Vende las 24 horas con una tienda online optimizada, segura y fácil de administrar.",
+  descriptions: [
+    "En imSoft diseñamos y desarrollamos tiendas en línea personalizadas que te permiten llegar a más clientes y aumentar tus ventas. Integramos pasarelas de pago, gestión de inventario y logística de forma fluida para ofrecer una experiencia de compra intuitiva.",
+    "Contamos con experiencia en plataformas como Shopify, WooCommerce y soluciones a medida. Cada proyecto incluye optimización SEO on-page enfocada a e-commerce, garantizando visibilidad orgánica y crecimiento sostenido de tu negocio.",
+  ],
+  primaryActionText: "Solicitar Cotización",
+  primaryActionHref: `mailto:sales@imsoft.io?subject=${encodeURIComponent(
+    "Cotización: Servicio de Tienda en Línea"
+  )}&body=${encodeURIComponent(
+    "Hola equipo de imSoft,%0A%0AMe interesa recibir una cotización para el servicio de Tienda en Línea.%0APor favor, envíenme detalles sobre precios y plazos.%0A%0AGracias."
+  )}`,
+  secondaryActionText: "Ver Casos de Éxito",
+  secondaryActionHref: "/portafolio",
+  features: [
+    {
+      text: "Integración con pasarelas de pago seguras (PayPal, Stripe, Conekta)",
+    },
+    { text: "Carrito de compras optimizado para conversión y velocidad" },
+    { text: "Gestión de productos, categorías y stock en tiempo real" },
+    { text: "Diseño responsive y adaptado a dispositivos móviles" },
+    { text: "Optimización SEO específica para tiendas en línea" },
+  ],
+  methodologySteps: [
+    {
+      title: "Análisis de Requerimientos",
+      description:
+        "Recopilamos información de catálogos, métodos de pago y logística para definir la arquitectura de tu tienda en línea.",
+    },
+    {
+      title: "Diseño UI/UX",
+      description:
+        "Creamos prototipos enfocados en la experiencia de compra: navegación clara, llamadas a la acción visibles y proceso de checkout sencillo.",
+    },
+    {
+      title: "Desarrollo e Integración",
+      description:
+        "Implementamos la tienda usando plataformas como Shopify o WooCommerce, o desarrollamos soluciones a medida con tecnologías modernas (React, Next.js, Laravel). Configuramos pasarelas de pago, gestión de envíos y métodos de envío.",
+    },
+    {
+      title: "Pruebas y QA",
+      description:
+        "Realizamos pruebas de usabilidad, flujo de compra, transacciones y compatibilidad en distintos navegadores para asegurar un funcionamiento impecable.",
+    },
+    {
+      title: "Lanzamiento y Optimización",
+      description:
+        "Publicamos la tienda en producción, configuramos SEO técnico y monitoreamos métricas de venta. Ajustamos landing pages y promociones para mejorar la conversión.",
+    },
+  ],
+  faqs: [
+    {
+      question: "¿Qué plataforma de e-commerce recomiendan?",
+      answer:
+        "Depende del tamaño y necesidades de tu negocio. Shopify es ideal para tiendas pequeñas y medianas por su facilidad de uso y escalabilidad. WooCommerce (WordPress) ofrece flexibilidad si ya manejas contenido en WordPress. Para proyectos más complejos, recomendamos soluciones a medida con frameworks como Next.js o Laravel.",
+    },
+    {
+      question: "¿Cuánto tiempo toma desarrollar una tienda en línea básica?",
+      answer:
+        "Para una tienda con catálogo limitado (hasta 50 productos), integración de pagos y diseño personalizado, el tiempo estimado es de 6 a 8 semanas. Tiendas más grandes o con funcionalidades avanzadas (marketplace, CRM integrado) pueden requerir 10 a 14 semanas.",
+    },
+    {
+      question: "¿Cómo garantizan la seguridad en las transacciones?",
+      answer:
+        "Implementamos HTTPS obligatorio, cifrado de datos en tránsito, validación de formularios y sistemas antifraude en las pasarelas de pago. Además, mantenemos la tienda actualizada con los últimos parches de seguridad.",
+    },
+    {
+      question: "¿Incluyen optimización SEO desde el inicio?",
+      answer:
+        "Sí. Configuramos meta tags, rich snippets para productos, sitemap.xml y optimización de URLs amigables. Aplicamos prácticas de performance (lazy loading, compresión de imágenes) para mejorar la velocidad y experiencia de usuario.",
+    },
+    {
+      question: "¿Cómo funciona la gestión de inventario y envíos?",
+      answer:
+        "Integramos tu tienda con sistemas de gestión de inventario en tiempo real para controlar stock. Configuramos métodos de envío (envío propio o con terceros como DHL, FedEx) y calculamos tarifas automáticamente según ubicación y peso.",
+    },
+    {
+      question: "¿Ofrecen soporte y mantenimiento posterior al lanzamiento?",
+      answer:
+        "Sí. Tenemos planes de mantenimiento mensual para actualizaciones de productos, mejoras de seguridad, monitorización del sitio y ajustes SEO continuos. También brindamos asistencia para agregar nuevas funcionalidades conforme crezca tu negocio.",
+    },
+  ],
+};
+---
+
+<Layout>
+  <ServiceTemplate {...serviceData} />
+</Layout>

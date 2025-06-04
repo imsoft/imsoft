@@ -1,0 +1,92 @@
+---
+import "../../../styles/global.css";
+import Layout from "../../../layouts/Layout.astro";
+import type { ServiceTemplateProps } from "../../../components/service/ServiceTemplate.astro";
+import ServiceTemplate from "../../../components/service/ServiceTemplate.astro";
+
+const serviceData: ServiceTemplateProps = {
+  imageUrl:
+    "https://res.cloudinary.com/https-imsoft-io/image/upload/v1706898185/imsoft-images/services/analisis-de-datos-imsoft.jpg",
+  alt: "Servicio de Análisis de Datos - imSoft",
+  title: "Servicio de Análisis de Datos",
+  subtitle:
+    "Impulsa tus decisiones empresariales con datos confiables y personalizados.",
+  descriptions: [
+    "En imSoft ofrecemos un servicio integral de análisis de datos que abarca desde la recolección y limpieza de información hasta la generación de insights accionables.",
+    "Nuestro objetivo es transformar datos crudos en informes claros y visualizaciones interactivas para ayudar a tu empresa a optimizar procesos, detectar oportunidades de mercado y tomar decisiones basadas en hechos reales.",
+  ],
+  primaryActionText: "Solicitar Cotización",
+  primaryActionHref: `mailto:sales@imsoft.io
+    ?subject=${encodeURIComponent("Cotización: Servicio de Análisis de Datos")}
+    &body=${encodeURIComponent(
+      "Hola equipo de imSoft,%0A%0AMe interesa solicitar una cotización para el servicio de Análisis de Datos.%0APor favor, envíenme más información.%0A%0AGracias."
+    )}`,
+  secondaryActionText: "Casos de Éxito",
+  secondaryActionHref: "/portafolio",
+  features: [
+    { text: "Recolección y limpieza de datos desde múltiples fuentes" },
+    { text: "Visualizaciones dinámicas e interactivas para tus métricas" },
+    { text: "Informes personalizados adaptados a objetivos específicos" },
+    { text: "Modelos predictivos para anticipar tendencias del mercado" },
+    { text: "Soporte continuo y actualizaciones de tus dashboards" },
+  ],
+  methodologySteps: [
+    {
+      title: "Exploración",
+      description:
+        "Evaluamos la calidad y relevancia de tus datos para asegurar resultados fiables.",
+    },
+    {
+      title: "Transformación",
+      description:
+        "Limpiamos, normalizamos y estructuramos la información para facilitar el análisis.",
+    },
+    {
+      title: "Modelado",
+      description:
+        "Construimos modelos estadísticos y predictivos con herramientas como Python, R y plataformas BI.",
+    },
+    {
+      title: "Visualización",
+      description:
+        "Creamos dashboards interactivos y reportes ejecutivos para mostrar insights claros.",
+    },
+  ],
+  faqs: [
+    {
+      question: "¿Qué incluye el servicio de Análisis de Datos?",
+      answer:
+        "Nuestro servicio abarca la recolección, limpieza y normalización de datos, así como el desarrollo de modelos estadísticos y predictivos. Además, entregamos dashboards interactivos y reportes ejecutivos personalizados.",
+    },
+    {
+      question: "¿Qué tipo de empresas pueden beneficiarse?",
+      answer:
+        "Cualquier empresa que necesite tomar decisiones basadas en datos: desde pymes hasta corporativos. Atendemos sectores como retail, logística, salud y servicios financieros, entre otros.",
+    },
+    {
+      question: "¿Cuánto tiempo lleva obtener resultados?",
+      answer:
+        "El cronograma varía según la complejidad de los datos. En proyectos estándar, la fase inicial de exploración y limpieza puede realizarse en 2 a 3 semanas. Luego, en 4 a 6 semanas, generamos modelos y dashboards básicos.",
+    },
+    {
+      question: "¿Qué tecnologías utilizamos?",
+      answer:
+        "Trabajamos con Python (Pandas, NumPy, Scikit-Learn), R, Power BI, Tableau y herramientas de almacenamiento como BigQuery o PostgreSQL. Adaptamos la solución a tu ecosistema tecnológico.",
+    },
+    {
+      question: "¿Ofrecen soporte y actualizaciones?",
+      answer:
+        "Sí. Después de la implementación inicial, brindamos soporte técnico continuo y actualizamos tus dashboards según cambien tus necesidades de negocio. Puedes contratar mantenimiento mensual o por proyecto.",
+    },
+    {
+      question: "¿Cuál es la inversión aproximada?",
+      answer:
+        "El costo depende del volumen y complejidad de los datos. Proyectos medianos suelen oscilar entre $50,000 y $150,000 MXN. Para obtener un presupuesto detallado, contáctanos.",
+    },
+  ],
+};
+---
+
+<Layout>
+  <ServiceTemplate {...serviceData} />
+</Layout>
