@@ -4,7 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import type { MarkdownInstance } from "astro";
 import BlogCard from "../../components/blog/BlogCard.astro";
 
-const allPostFiles = import.meta.glob("../../content/blogs/*.md", { eager: true });
+const allPostFiles = import.meta.glob("../../content/blogs/es/*.md", { eager: true });
 
 type Frontmatter = {
   title: string;

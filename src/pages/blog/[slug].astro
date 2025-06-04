@@ -4,7 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import type { MarkdownInstance } from "astro";
 
 export async function getStaticPaths() {
-  const allPostFiles = import.meta.glob("../../content/blogs/*.md", {
+  const allPostFiles = import.meta.glob("../../content/blogs/es/*.md", {
     eager: true,
   });
   return Object.keys(allPostFiles).map((filePath) => {
@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 }
 
 const slug = Astro.params.slug;
-const allPostFiles = import.meta.glob("../../content/blogs/*.md", {
+const allPostFiles = import.meta.glob("../../content/blogs/es/*.md", {
   eager: true,
 });
 
