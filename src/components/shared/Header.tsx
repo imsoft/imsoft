@@ -213,15 +213,15 @@ export default function Header(props: HeaderProps): JSX.Element {
 
           {/* Selector de idioma */}
           <div class="dropdown dropdown-end">
-            <label tabIndex={0} class="btn btn-ghost m-1">
+            <label tabIndex={0} class="btn btn-ghost m-1 hover:bg-blue-500">
               {currentLang().toUpperCase()}
             </label>
             <ul
               tabIndex={0}
-              class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-24"
+              class="dropdown-content menu p-2 shadow bg-blue-500 rounded-box w-24"
             >
-              <li>
-                <a href={altHref()}>
+              <li class="">
+                <a class="text-white" href={altHref()}>
                   {currentLang() === "es" ? "English" : "Español"}
                 </a>
               </li>
