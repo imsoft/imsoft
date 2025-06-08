@@ -21,13 +21,11 @@ export default defineConfig({
   integrations: [
     solidJs(),
     sitemap({
-      changefreq: ChangeFreqEnum.DAILY, //
+      changefreq: ChangeFreqEnum.DAILY,
       priority: 0.8,
       lastmod: new Date(),
 
-      filter: (url) => {
-        return !/\/404\/?$/.test(url) && !/\/admin\//.test(url);
-      },
+      filter: (url) => !/\/404\/?$/.test(url) && !/\/admin\//.test(url),
 
       serialize: (item) => {
         if (/^https:\/\/imsoft\.io\/blog\//.test(item.url)) {
@@ -38,7 +36,6 @@ export default defineConfig({
             priority: 0.9,
           };
         }
-
         if (item.url === "https://imsoft.io/") {
           return {
             ...item,
@@ -47,8 +44,15 @@ export default defineConfig({
             priority: 1.0,
           };
         }
-
         return item;
+      },
+
+      i18n: {
+        defaultLocale: "es",
+        locales: {
+          es: "es-ES",
+          en: "en-US",
+        },
       },
     }),
   ],
