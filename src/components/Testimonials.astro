@@ -1,17 +1,23 @@
 ---
-import { testimonials } from "../data/testimonials";
+import type { TestimonialsProps } from "../interfaces/Testimonial";
+
+const { heading, subheading, quote, company, service, image, columns } =
+  Astro.props as TestimonialsProps;
+const { firstColumn, secondColumn, thirdColumn, fourthColumn } = columns;
 ---
 
 <div class="relative isolate bg-[var(--background)] pt-24 pb-32 sm:pt-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-3xl text-center opacity-0 animate-fade-in">
-      <h2 class="text-base/7 font-semibold text-[var(--primary)] opacity-0 animate-fade-in-delay-200">
-        Testimonios
+      <h2
+        class="text-base/7 font-semibold text-[var(--primary)] opacity-0 animate-fade-in-delay-200"
+      >
+        {heading}
       </h2>
       <p
         class="mt-2 text-4xl font-semibold tracking-tight text-[var(--foreground)] sm:text-5xl opacity-0 animate-fade-in-delay-400"
       >
-        Empresas reales, experiencias reales
+        {subheading}
       </p>
     </div>
 
@@ -20,59 +26,52 @@ import { testimonials } from "../data/testimonials";
              sm:mt-20 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4"
     >
       <figure
-        class="
-          rounded-2xl
+        class="rounded-2xl
           bg-[var(--card)]
           shadow-lg
           ring-1 ring-[var(--border)]
           sm:col-span-2
           xl:col-start-2 xl:row-end-1
-          opacity-0 animate-fade-in
-        "
+          opacity-0 animate-fade-in"
       >
         <blockquote
-          class="
-            p-6 text-lg font-semibold tracking-tight text-[var(--foreground)]
-            sm:p-12 sm:text-xl/8 opacity-0 animate-fade-in-delay-200
-          "
+          class="p-6 text-lg font-semibold tracking-tight text-[var(--foreground)]
+            sm:p-12 sm:text-xl/8 opacity-0 animate-fade-in-delay-200"
         >
           <p>
-            “Desde que lanzamos nuestra tienda con imSoft, la experiencia para
-            nuestros lectores mejoró drásticamente. La plataforma es rápida,
-            intuitiva y nos permite vender nuestros ebooks las 24 horas sin
-            complicaciones. Ahora podemos enfocarnos en crear contenido,
-            mientras la tecnología hace el resto.”
+            {quote}
           </p>
         </blockquote>
         <figcaption
-          class="
-            flex flex-wrap items-center gap-x-4 gap-y-4
+          class="flex flex-wrap items-center gap-x-4 gap-y-4
             border-t border-[var(--border)]
             bg-[var(--card)] px-6 py-4 sm:flex-nowrap
-            opacity-0 animate-fade-in-delay-400
-          "
+            opacity-0 animate-fade-in-delay-400"
         >
           <img
             class="size-10 flex-none rounded-full bg-[var(--popover)] dark:bg-white"
-            src="https://res.cloudinary.com/https-imsoft-io/image/upload/v1748817038/imsoft-images/portfolio/logos/cursumi.png"
+            src={image}
             loading="lazy"
             alt="Logo de Cursumi"
           />
           <div class="flex-auto">
-            <div class="font-semibold text-[var(--foreground)]">Cursumi</div>
-            <div class="text-[var(--muted-foreground)]">📊 Aplicación Web</div>
+            <div class="font-semibold text-[var(--foreground)]">{company}</div>
+            <div class="text-[var(--muted-foreground)]">{service}</div>
           </div>
         </figcaption>
       </figure>
 
       <div class="space-y-8 xl:contents xl:space-y-0">
         <div class="space-y-8 xl:row-span-2">
-          {testimonials.firstColumn.map((testimonial, idx) => {
-            const delayClass =
-              idx === 0 ? "animate-fade-in" : `animate-fade-in-delay-${idx * 200}`;
-            return (
-              <figure
-                class={`
+          {
+            firstColumn.map((testimonial, idx) => {
+              const delayClass =
+                idx === 0
+                  ? "animate-fade-in"
+                  : `animate-fade-in-delay-${idx * 200}`;
+              return (
+                <figure
+                  class={`
                   rounded-2xl
                   bg-[var(--card)]
                   p-6
@@ -80,37 +79,41 @@ import { testimonials } from "../data/testimonials";
                   ring-1 ring-[var(--border)]
                   opacity-0 ${delayClass}
                 `}
-              >
-                <blockquote class="text-[var(--foreground)]">
-                  <p>{testimonial.quote}</p>
-                </blockquote>
-                <figcaption class="mt-6 flex items-center gap-x-4">
-                  <img
-                    class="size-10 rounded-full bg-[var(--popover)] dark:bg-white"
-                    src={testimonial.image}
-                    loading="lazy"
-                    alt={`Logo de ${testimonial.company}`}
-                  />
-                  <div>
-                    <div class="font-semibold text-[var(--foreground)]">
-                      {testimonial.company}
+                >
+                  <blockquote class="text-[var(--foreground)]">
+                    <p>{testimonial.quote}</p>
+                  </blockquote>
+                  <figcaption class="mt-6 flex items-center gap-x-4">
+                    <img
+                      class="size-10 rounded-full bg-[var(--popover)] dark:bg-white"
+                      src={testimonial.image}
+                      loading="lazy"
+                      alt={`Logo de ${testimonial.company}`}
+                    />
+                    <div>
+                      <div class="font-semibold text-[var(--foreground)]">
+                        {testimonial.company}
+                      </div>
+                      <div class="text-[var(--muted-foreground)]">
+                        {testimonial.service}
+                      </div>
                     </div>
-                    <div class="text-[var(--muted-foreground)]">
-                      {testimonial.service}
-                    </div>
-                  </div>
-                </figcaption>
-              </figure>
-            );
-          })}
+                  </figcaption>
+                </figure>
+              );
+            })
+          }
         </div>
         <div class="space-y-8 xl:row-start-1">
-          {testimonials.secondColumn.map((testimonial, idx) => {
-            const delayClass =
-              idx === 0 ? "animate-fade-in" : `animate-fade-in-delay-${idx * 200}`;
-            return (
-              <figure
-                class={`
+          {
+            secondColumn.map((testimonial, idx) => {
+              const delayClass =
+                idx === 0
+                  ? "animate-fade-in"
+                  : `animate-fade-in-delay-${idx * 200}`;
+              return (
+                <figure
+                  class={`
                   rounded-2xl
                   bg-[var(--card)]
                   p-6
@@ -118,40 +121,44 @@ import { testimonials } from "../data/testimonials";
                   ring-1 ring-[var(--border)]
                   opacity-0 ${delayClass}
                 `}
-              >
-                <blockquote class="text-[var(--foreground)]">
-                  <p>{testimonial.quote}</p>
-                </blockquote>
-                <figcaption class="mt-6 flex items-center gap-x-4">
-                  <img
-                    class="size-10 rounded-full bg-[var(--popover)] dark:bg-white"
-                    src={testimonial.image}
-                    loading="lazy"
-                    alt={`Logo de ${testimonial.company}`}
-                  />
-                  <div>
-                    <div class="font-semibold text-[var(--foreground)]">
-                      {testimonial.company}
+                >
+                  <blockquote class="text-[var(--foreground)]">
+                    <p>{testimonial.quote}</p>
+                  </blockquote>
+                  <figcaption class="mt-6 flex items-center gap-x-4">
+                    <img
+                      class="size-10 rounded-full bg-[var(--popover)] dark:bg-white"
+                      src={testimonial.image}
+                      loading="lazy"
+                      alt={`Logo de ${testimonial.company}`}
+                    />
+                    <div>
+                      <div class="font-semibold text-[var(--foreground)]">
+                        {testimonial.company}
+                      </div>
+                      <div class="text-[var(--muted-foreground)]">
+                        {testimonial.service}
+                      </div>
                     </div>
-                    <div class="text-[var(--muted-foreground)]">
-                      {testimonial.service}
-                    </div>
-                  </div>
-                </figcaption>
-              </figure>
-            );
-          })}
+                  </figcaption>
+                </figure>
+              );
+            })
+          }
         </div>
       </div>
 
       <div class="space-y-8 xl:contents xl:space-y-0">
         <div class="space-y-8 xl:row-start-1">
-          {testimonials.thirdColumn.map((testimonial, idx) => {
-            const delayClass =
-              idx === 0 ? "animate-fade-in" : `animate-fade-in-delay-${idx * 200}`;
-            return (
-              <figure
-                class={`
+          {
+            thirdColumn.map((testimonial, idx) => {
+              const delayClass =
+                idx === 0
+                  ? "animate-fade-in"
+                  : `animate-fade-in-delay-${idx * 200}`;
+              return (
+                <figure
+                  class={`
                   rounded-2xl
                   bg-[var(--card)]
                   p-6
@@ -159,37 +166,41 @@ import { testimonials } from "../data/testimonials";
                   ring-1 ring-[var(--border)]
                   opacity-0 ${delayClass}
                 `}
-              >
-                <blockquote class="text-[var(--foreground)]">
-                  <p>{testimonial.quote}</p>
-                </blockquote>
-                <figcaption class="mt-6 flex items-center gap-x-4">
-                  <img
-                    class="size-10 rounded-full bg-[var(--popover)] dark:bg-white"
-                    src={testimonial.image}
-                    loading="lazy"
-                    alt={`Logo de ${testimonial.company}`}
-                  />
-                  <div>
-                    <div class="font-semibold text-[var(--foreground)]">
-                      {testimonial.company}
+                >
+                  <blockquote class="text-[var(--foreground)]">
+                    <p>{testimonial.quote}</p>
+                  </blockquote>
+                  <figcaption class="mt-6 flex items-center gap-x-4">
+                    <img
+                      class="size-10 rounded-full bg-[var(--popover)] dark:bg-white"
+                      src={testimonial.image}
+                      loading="lazy"
+                      alt={`Logo de ${testimonial.company}`}
+                    />
+                    <div>
+                      <div class="font-semibold text-[var(--foreground)]">
+                        {testimonial.company}
+                      </div>
+                      <div class="text-[var(--muted-foreground)]">
+                        {testimonial.service}
+                      </div>
                     </div>
-                    <div class="text-[var(--muted-foreground)]">
-                      {testimonial.service}
-                    </div>
-                  </div>
-                </figcaption>
-              </figure>
-            );
-          })}
+                  </figcaption>
+                </figure>
+              );
+            })
+          }
         </div>
         <div class="space-y-8 xl:row-span-2">
-          {testimonials.fourthColumn.map((testimonial, idx) => {
-            const delayClass =
-              idx === 0 ? "animate-fade-in" : `animate-fade-in-delay-${idx * 200}`;
-            return (
-              <figure
-                class={`
+          {
+            fourthColumn.map((testimonial, idx) => {
+              const delayClass =
+                idx === 0
+                  ? "animate-fade-in"
+                  : `animate-fade-in-delay-${idx * 200}`;
+              return (
+                <figure
+                  class={`
                   rounded-2xl
                   bg-[var(--card)]
                   p-6
@@ -197,29 +208,30 @@ import { testimonials } from "../data/testimonials";
                   ring-1 ring-[var(--border)]
                   opacity-0 ${delayClass}
                 `}
-              >
-                <blockquote class="text-[var(--foreground)]">
-                  <p>{testimonial.quote}</p>
-                </blockquote>
-                <figcaption class="mt-6 flex items-center gap-x-4">
-                  <img
-                    class="size-10 rounded-full bg-[var(--popover)] dark:bg-white"
-                    src={testimonial.image}
-                    loading="lazy"
-                    alt={`Logo de ${testimonial.company}`}
-                  />
-                  <div>
-                    <div class="font-semibold text-[var(--foreground)]">
-                      {testimonial.company}
+                >
+                  <blockquote class="text-[var(--foreground)]">
+                    <p>{testimonial.quote}</p>
+                  </blockquote>
+                  <figcaption class="mt-6 flex items-center gap-x-4">
+                    <img
+                      class="size-10 rounded-full bg-[var(--popover)] dark:bg-white"
+                      src={testimonial.image}
+                      loading="lazy"
+                      alt={`Logo de ${testimonial.company}`}
+                    />
+                    <div>
+                      <div class="font-semibold text-[var(--foreground)]">
+                        {testimonial.company}
+                      </div>
+                      <div class="text-[var(--muted-foreground)]">
+                        {testimonial.service}
+                      </div>
                     </div>
-                    <div class="text-[var(--muted-foreground)]">
-                      {testimonial.service}
-                    </div>
-                  </div>
-                </figcaption>
-              </figure>
-            );
-          })}
+                  </figcaption>
+                </figure>
+              );
+            })
+          }
         </div>
       </div>
     </div>

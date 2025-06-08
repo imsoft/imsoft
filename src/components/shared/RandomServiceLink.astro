@@ -1,12 +1,18 @@
 ---
-import { randomServices } from "../../data/randomServices";
+import { getLangFromUrl } from "../../i18n/utils";
+import { translations } from "../../i18n/translations";
 
-const randomIndex = Math.floor(Math.random() * randomServices.length);
-const service = randomServices[randomIndex];
+const lang = getLangFromUrl(Astro.url);
+const { randomServices } = translations[lang].index;
+const { preText, items } = randomServices;
+
+// Elige uno al azar
+const idx = Math.floor(Math.random() * items.length);
+const service = items[idx];
 ---
 
 <p class="relative">
-  Descubre más sobre {service.label},{" "}
+  {preText}<strong>{service.label}</strong>,&nbsp;
   <a href={service.href} class="font-semibold text-blue-600 relative">
     <span class="absolute inset-0" aria-hidden="true"></span>
     {service.linkText}

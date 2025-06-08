@@ -1,0 +1,78 @@
+---
+import "../../../styles/global.css";
+import Layout from "../../../layouts/Layout.astro";
+import { translations } from "../../../i18n/translations";
+import type { MarkdownInstance } from "astro";
+import type { Frontmatter } from "../../../interfaces/PostEntry";
+
+// 1) Generamos las rutas en inglés
+export function getStaticPaths() {
+  const postFiles = import.meta.glob<MarkdownInstance<Frontmatter>>(
+    "../../../content/blogs/en/*.md",
+    { eager: true }
+  );
+  return Object.keys(postFiles).map((filePath) => {
+    const slug = filePath.split("/").pop()!.replace(/\.md$/, "");
+    return { params: { slug } };
+  });
+}
+
+// —————————————————————
+
+// 2) Renderizado de cada post en inglés
+const slug = Astro.params.slug;
+const lang = "en";
+const { by, dateFormatOptions } = translations[lang].blog;
+
+const postFiles = import.meta.glob<MarkdownInstance<Frontmatter>>(
+  "../../../content/blogs/en/*.md",
+  { eager: true }
+);
+const matchKey = Object.keys(postFiles).find((path) =>
+  path.endsWith(`/${slug}.md`)
+);
+if (!matchKey) {
+  throw new Error(`No post found with slug "${slug}" in ${lang}`);
+}
+const { frontmatter, Content } = (postFiles as any)[matchKey];
+
+// Formateamos la fecha en inglés
+const formattedDate = new Date(frontmatter.publishedAt).toLocaleDateString(
+  "en-US",
+  dateFormatOptions
+);
+---
+
+<Layout>
+  <article class="mx-auto max-w-3xl px-6 py-12">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-[var(--foreground)]">
+        {frontmatter.title}
+      </h1>
+      <p class="mt-2 text-sm text-[var(--muted-foreground)]">
+        {formattedDate} · <span class="italic">{by} {frontmatter.author}</span>
+      </p>
+      {frontmatter.mainImage && (
+        <img
+          src={frontmatter.mainImage}
+          alt={frontmatter.alt}
+          loading="lazy"
+          class="w-full rounded-2xl object-cover mt-6"
+        />
+      )}
+      <div class="mt-4 flex flex-wrap gap-x-2 gap-y-1 text-xs">
+        {frontmatter.categories.map((cat: string) => (
+          <span class="rounded-full bg-[var(--secondary)] px-2 py-1 font-medium text-[var(--secondary-foreground)]">
+            {cat}
+          </span>
+        ))}
+      </div>
+    </header>
+
+    <hr class="mb-8 border-[var(--border)]" />
+
+    <div class="prose prose-lg mx-auto p-6 rounded-lg text-[var(--foreground)] dark:prose-invert">
+      <Content />
+    </div>
+  </article>
+</Layout>

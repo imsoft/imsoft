@@ -1,0 +1,66 @@
+---
+// cargamos solo los posts en inglés
+import "../../../styles/global.css";
+import Layout from "../../../layouts/Layout.astro";
+import type { MarkdownInstance } from "astro";
+import BlogCard from "../../../components/blog/BlogCard.astro";
+import { getLangFromUrl } from "../../../i18n/utils";
+import { translations } from "../../../i18n/translations";
+import type { Frontmatter, PostEntry } from "../../../interfaces/PostEntry";
+
+const lang = getLangFromUrl(Astro.url) as "es" | "en";
+const { heading, description } = translations[lang].blog;
+
+// solo los MDs de `content/blogs/en`
+const allPostFiles = import.meta.glob<MarkdownInstance<Frontmatter>>(
+  "../../../content/blogs/en/*.md",
+  { eager: true }
+);
+
+const posts: PostEntry[] = Object.entries(allPostFiles).map(
+  ([filePath, module]) => {
+    const { frontmatter } = module;
+    const filename = filePath.split("/").pop()!;
+    const slug = frontmatter.slug || filename.replace(/\.md$/, "");
+    return { slug, frontmatter };
+  }
+);
+
+// orden por fecha
+posts.sort(
+  (a, b) =>
+    new Date(b.frontmatter.publishedAt).getTime() -
+    new Date(a.frontmatter.publishedAt).getTime()
+);
+---
+
+<Layout>
+  <div class="bg-[var(--background)] py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2
+          class="text-4xl font-semibold tracking-tight text-[var(--foreground)] sm:text-5xl opacity-0 animate-fade-in"
+        >
+          {heading}
+        </h2>
+        <p
+          class="mt-2 text-lg text-[var(--muted-foreground)] opacity-0 animate-fade-in-delay-200"
+        >
+          {description}
+        </p>
+      </div>
+
+      <div
+        class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+      >
+        {
+          posts.map(({ slug, frontmatter }, idx) => {
+            const href = `/en/blog/${slug}`; // ruta fija en /en/blog/...
+            const delay = idx === 0 ? 0 : idx * 200;
+            return <BlogCard post={{ ...frontmatter, href }} delay={delay} />;
+          })
+        }
+      </div>
+    </div>
+  </div>
+</Layout>

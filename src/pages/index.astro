@@ -5,11 +5,60 @@ import Hero from "../components/Hero.astro";
 import Features from "../components/Features.astro";
 import Testimonials from "../components/Testimonials.astro";
 import Services from "../components/service/Services.astro";
+
+import { getLangFromUrl } from "../i18n/utils";
+import { translations } from "../i18n/translations";
+
+// 1. Detecta el idioma actual
+const lang = getLangFromUrl(Astro.url);
+// 2. Extrae sólo la parte 'index'
+const { index } = translations[lang];
+// 3. Desestructura las cadenas
+const {
+  hero: { title, description, bullets },
+  features: {
+    heading,
+    subheading,
+    description: featureDescription,
+    differentiators,
+  },
+  services: {
+    heading: servicesHeading,
+    description: servicesDescription,
+    items: serviceItems,
+  },
+  testimonials: {
+    heading: testimonialsHeading,
+    subheading: testimonialsSubheading,
+    quote: testimonialQuote,
+    company: testimonialCompany,
+    service: testimonialServices,
+    image: testimonialImage,
+    columns: testimonialColumns,
+  },
+} = index;
 ---
 
 <Layout>
-  <Hero />
-  <Features />
-  <Services />
-  <Testimonials />
+  <Hero {title} {description} {bullets} />
+  <Features
+    heading={heading}
+    subheading={subheading}
+    description={featureDescription}
+    differentiators={differentiators}
+  />
+  <Services
+    heading={servicesHeading}
+    description={servicesDescription}
+    services={serviceItems}
+  />
+  <Testimonials
+    heading={testimonialsHeading}
+    subheading={testimonialsSubheading}
+    quote={testimonialQuote}
+    company={testimonialCompany}
+    service={testimonialServices}
+    image={testimonialImage}
+    columns={testimonialColumns}
+  />
 </Layout>

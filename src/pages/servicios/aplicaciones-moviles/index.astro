@@ -3,97 +3,20 @@ import "../../../styles/global.css";
 import Layout from "../../../layouts/Layout.astro";
 import type { ServiceTemplateProps } from "../../../components/service/ServiceTemplate.astro";
 import ServiceTemplate from "../../../components/service/ServiceTemplate.astro";
+import { getLangFromUrl } from "../../../i18n/utils";
+import { translations } from "../../../i18n/translations";
 
-const serviceData: ServiceTemplateProps = {
-  imageUrl:
-    "https://res.cloudinary.com/https-imsoft-io/image/upload/v1706898396/imsoft-images/services/aplicaciones-moviles-imsoft.jpg",
-  alt: "Servicio de Desarrollo de Aplicaciones Móviles - imSoft",
-  title: "Servicio de Aplicaciones Móviles",
-  subtitle:
-    "Conecta con tus clientes en su bolsillo: apps rápidas, seguras y a la medida.",
-  descriptions: [
-    "En imSoft diseñamos y desarrollamos aplicaciones móviles nativas e híbridas para iOS y Android, enfocadas en ofrecer experiencias de usuario fluidas y alto rendimiento.",
-    "Nuestra metodología cubre desde el análisis de requisitos y diseño de interfaz (UI/UX) hasta la implementación, pruebas y despliegue en las tiendas oficiales. Garantizamos soluciones escalables que impulsan la retención y conversión de usuarios.",
-  ],
-  primaryActionText: "Solicitar Cotización",
-  primaryActionHref: `mailto:sales@imsoft.io?subject=${encodeURIComponent(
-    "Cotización: Servicio de Aplicaciones Móviles"
-  )}&body=${encodeURIComponent(
-    "Hola equipo de imSoft,%0A%0AMe interesa recibir una cotización para el Servicio de Aplicaciones Móviles.%0APor favor envíenme detalles sobre características, precios y tiempos de entrega.%0A%0AGracias."
-  )}`,
-  secondaryActionText: "Ver Casos de Éxito",
-  secondaryActionHref: "/portafolio",
-  features: [
-    {
-      text: "Desarrollo nativo (Swift, Kotlin) y multiplataforma (React Native, Flutter)",
-    },
-    { text: "Diseño UI/UX centrado en la experiencia móvil" },
-    { text: "Integración con APIs, bases de datos y servicios externos" },
-    { text: "Optimización de rendimiento y consumo de recursos" },
-    { text: "Publicación y mantenimiento en App Store y Google Play" },
-  ],
-  methodologySteps: [
-    {
-      title: "Planeación y Análisis",
-      description:
-        "Recopilamos requerimientos, analizamos objetivos de negocio y definimos funcionalidades clave para tu aplicación móvil.",
-    },
-    {
-      title: "Diseño UI/UX",
-      description:
-        "Creamos prototipos interactivos y wireframes que aseguran una navegación intuitiva y atractiva para el usuario final.",
-    },
-    {
-      title: "Desarrollo",
-      description:
-        "Construimos la app usando tecnologías nativas (Swift, Kotlin) o híbridas (React Native, Flutter) según tus necesidades y presupuesto.",
-    },
-    {
-      title: "Pruebas y QA",
-      description:
-        "Realizamos pruebas unitarias, de integración y usabilidad en dispositivos reales para garantizar estabilidad y rendimiento óptimos.",
-    },
-    {
-      title: "Lanzamiento y Monitoreo",
-      description:
-        "Publicamos la aplicación en Google Play y App Store, y configuramos herramientas de monitoreo para analizar métricas de uso y rendimiento.",
-    },
-  ],
-  faqs: [
-    {
-      question:
-        "¿Necesito una app nativa o puedo usar una solución multiplataforma?",
-      answer:
-        "Depende de tu presupuesto y objetivos. Las apps nativas (Swift para iOS, Kotlin para Android) ofrecen máximo rendimiento, mientras que las multiplataforma (React Native, Flutter) reducen tiempos y costos de desarrollo manteniendo buen rendimiento.",
-    },
-    {
-      question: "¿Cuánto tiempo toma desarrollar una aplicación móvil básica?",
-      answer:
-        "Para una app con funcionalidades esenciales (login, perfiles, notificaciones básicas), el tiempo aproximado es de 8 a 12 semanas. Proyectos más complejos pueden requerir de 16 a 24 semanas, según las características y pruebas necesarias.",
-    },
-    {
-      question: "¿Cómo garantizan la seguridad de los datos en la app?",
-      answer:
-        "Implementamos cifrado en tránsito (HTTPS) y en reposo (encriptación local), autenticación segura (OAuth 2.0, JWT) y validaciones en el backend para proteger información sensible.",
-    },
-    {
-      question: "¿Cuál es el costo aproximado de desarrollo de una app móvil?",
-      answer:
-        "El costo varía según complejidad y número de plataformas. Proyectos simples para una sola plataforma suelen oscilar entre $80,000 y $150,000 MXN. Apps multiplataforma con funcionalidades avanzadas pueden estar entre $150,000 y $300,000 MXN. Contáctanos para un presupuesto detallado.",
-    },
-    {
-      question:
-        "¿Ofrecen mantenimiento y actualizaciones posteriores al lanzamiento?",
-      answer:
-        "Sí. Brindamos paquetes de soporte mensual o por hora para corregir errores, actualizar la app a nuevas versiones de iOS/Android y agregar mejoras según el feedback de usuarios.",
-    },
-    {
-      question: "¿Cómo manejo la publicación en App Store y Google Play?",
-      answer:
-        "Nos encargamos de todo el proceso: configuramos las cuentas de desarrollador, generamos los certificados necesarios (iOS/Android), subimos la aplicación y gestionamos la revisión de cada tienda.",
-    },
-  ],
-};
+const lang = getLangFromUrl(Astro.url);
+const slug = Astro.url.pathname
+  .split("/")
+  .filter((segment) => segment.length > 0)
+  .pop()!;
+
+const serviceData = (translations as any)[lang].servicesTemplates[slug] as ServiceTemplateProps;
+
+if (!serviceData) {
+  throw new Error(`No service template for "${slug}" in "${lang}"`);
+}
 ---
 
 <Layout>

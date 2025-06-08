@@ -1,5 +1,8 @@
 ---
-import { differentiators } from "../data/differentiators";
+import type { Differentiator, FeaturesProps } from "../interfaces/Features";
+
+const { heading, subheading, description, differentiators } =
+  Astro.props as FeaturesProps;
 ---
 
 <div class="bg-[var(--background)] py-12 sm:py-16">
@@ -9,17 +12,15 @@ import { differentiators } from "../data/differentiators";
     >
       <div class="col-span-2 opacity-0 animate-fade-in">
         <h2 class="text-base/7 font-semibold text-[var(--primary)]">
-          Lo Que Hace la Diferencia
+          {heading}
         </h2>
         <p
           class="mt-2 text-4xl font-semibold tracking-tight text-[var(--foreground)] sm:text-5xl"
         >
-          Estrategias que te hacen destacar
+          {subheading}
         </p>
         <p class="mt-6 text-base/7 text-[var(--muted-foreground)]">
-          Soluciones digitales diseñadas para posicionarte por encima de la
-          competencia. Innovación, eficiencia y resultados que impulsan tu
-          negocio.
+          {description}
         </p>
       </div>
 
@@ -27,7 +28,7 @@ import { differentiators } from "../data/differentiators";
         class="col-span-3 grid grid-cols-1 gap-x-8 gap-y-10 text-base/7 text-[var(--muted-foreground)] sm:grid-cols-2 lg:gap-y-16"
       >
         {
-          differentiators.map((item, idx) => {
+          differentiators.map((item: Differentiator, idx: number) => {
             const delayClass =
               idx === 0
                 ? "animate-fade-in"

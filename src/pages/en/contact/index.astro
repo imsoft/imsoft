@@ -1,0 +1,52 @@
+---
+import "../../../styles/global.css";
+import Layout from "../../../layouts/Layout.astro";
+import { getLangFromUrl }  from "../../../i18n/utils";
+import { translations }    from "../../../i18n/translations";
+import ContactCard         from "../../../components/contact/ContactCard.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const { heading, description, cards } = translations[lang].contact;
+---
+
+<Layout>
+  <div class="bg-[var(--background)] py-4 sm:py-8">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div
+        class="mx-auto max-w-2xl divide-y divide-[var(--border)] lg:mx-0 lg:max-w-none"
+      >
+        <div class="grid grid-cols-1 gap-10 py-8 lg:grid-cols-3">
+          <div class="opacity-0 animate-fade-in lg:col-span-1">
+            <h2
+              class="text-4xl
+                font-semibold
+                tracking-tight
+                text-pretty
+                text-[var(--foreground)]"
+            >
+              {heading}
+            </h2>
+            <p class="mt-4 text-base/7 text-[var(--muted-foreground)]">
+              {description}
+            </p>
+          </div>
+
+          <div
+            class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2 lg:gap-8"
+          >
+            {cards.map((item) => (
+              <ContactCard
+                title={item.title}
+                email={item.email}
+                mailtoLink={item.mailtoLink}
+                phoneLabel={item.phoneLabel}
+                phone={item.phone}
+                delay={item.delay}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -2,8 +2,27 @@
 import "../../styles/global.css";
 import Layout from "../../layouts/Layout.astro";
 import Services from "../../components/service/Services.astro";
+import { getLangFromUrl } from "../../i18n/utils";
+import { translations } from "../../i18n/translations";
+
+// 1. Detecta el idioma actual
+const lang = getLangFromUrl(Astro.url);
+// 2. Extrae sólo la parte 'index'
+const { index } = translations[lang];
+// 3. Desestructura las cadenas
+const {
+  services: {
+    heading: servicesHeading,
+    description: servicesDescription,
+    items: serviceItems,
+  },
+} = index;
 ---
 
 <Layout>
-    <Services />
+  <Services
+    heading={servicesHeading}
+    description={servicesDescription}
+    services={serviceItems}
+  />
 </Layout>

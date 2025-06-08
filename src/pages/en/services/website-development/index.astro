@@ -1,0 +1,25 @@
+---
+// src/pages/services/sitios-web/index.astro
+import "../../../../styles/global.css";
+import Layout from "../../../../layouts/Layout.astro";
+import { getLangFromUrl } from "../../../../i18n/utils";
+import { translations } from "../../../../i18n/translations";
+import type { ServiceTemplateProps } from "../../../../components/service/ServiceTemplate.astro";
+import ServiceTemplate from "../../../../components/service/ServiceTemplate.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const slug = Astro.url.pathname
+  .split("/")
+  .filter((segment) => segment.length > 0)
+  .pop()!;
+
+const serviceData = (translations as any)[lang].servicesTemplates[slug] as ServiceTemplateProps;
+
+if (!serviceData) {
+  throw new Error(`No service template for "${slug}" in "${lang}"`);
+}
+---
+
+<Layout>
+  <ServiceTemplate {...serviceData} />
+</Layout>

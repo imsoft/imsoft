@@ -1,7 +1,9 @@
 ---
 import "../../styles/global.css";
-import { services } from "../../data/services";
 import ServiceCard from "./ServiceCard.astro";
+import type { ServicesProps } from "../../interfaces/Service";
+
+const { heading, description, services } = Astro.props as ServicesProps;
 ---
 
 <div class="bg-[var(--background)] py-12 sm:py-16">
@@ -10,13 +12,12 @@ import ServiceCard from "./ServiceCard.astro";
       <h2
         class="text-4xl font-semibold tracking-tight text-[var(--foreground)] sm:text-5xl opacity-0 animate-fade-in-delay-200"
       >
-        Impulsa tu negocio hoy
+        {heading}
       </h2>
       <p
         class="mt-2 text-lg text-[var(--muted-foreground)] opacity-0 animate-fade-in-delay-400"
       >
-        Estrategias digitales diseñadas para hacer crecer tu marca, atraer más
-        clientes y generar resultados reales.
+        {description}
       </p>
     </div>
 
@@ -25,7 +26,7 @@ import ServiceCard from "./ServiceCard.astro";
                lg:mx-0 lg:max-w-none lg:grid-cols-3"
     >
       {
-        services.map((service, idx) => {
+        services.map((service, idx: number) => {
           const delay = idx === 0 ? 0 : idx * 200;
           return <ServiceCard service={service} delay={delay} />;
         })

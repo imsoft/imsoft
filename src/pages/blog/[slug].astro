@@ -1,121 +1,79 @@
 ---
 import "../../styles/global.css";
 import Layout from "../../layouts/Layout.astro";
+import { translations } from "../../i18n/translations";
 import type { MarkdownInstance } from "astro";
+import type { Frontmatter } from "../../interfaces/PostEntry";
 
-export async function getStaticPaths() {
-  const allPostFiles = import.meta.glob("../../content/blogs/es/*.md", {
-    eager: true,
-  });
-  return Object.keys(allPostFiles).map((filePath) => {
-    const filename = filePath.split("/").pop()!;
-    const slug = filename.replace(/\.md$/, "");
+// 1) Aquí dentro definimos el glob para generar las rutas
+export function getStaticPaths() {
+  const postFiles = import.meta.glob<MarkdownInstance<Frontmatter>>(
+    "../../content/blogs/es/*.md",
+    { eager: true }
+  );
+  return Object.keys(postFiles).map((filePath) => {
+    const slug = filePath.split("/").pop()!.replace(/\.md$/, "");
     return { params: { slug } };
   });
 }
 
+// —————————————————————
+
+// 2) El renderizado de cada post
 const slug = Astro.params.slug;
-const allPostFiles = import.meta.glob("../../content/blogs/es/*.md", {
-  eager: true,
-});
+const lang = "es";
+const { by, dateFormatOptions } = translations[lang].blog;
 
-type Frontmatter = {
-  title: string;
-  slug: string;
-  author: string;
-  mainImage: string;
-  alt: string;
-  categories: string[];
-  publishedAt: string;
-  language: string;
-  excerpt?: string;
-};
-
-let post: MarkdownInstance<Frontmatter> | null = null;
-for (const [filePath, module] of Object.entries(allPostFiles)) {
-  const filename = filePath.split("/").pop();
-  if (filename === `${slug}.md`) {
-    post = module as MarkdownInstance<Frontmatter>;
-    break;
-  }
+// VOLVEMOS a llamar el glob para obtener el contenido
+const postFiles = import.meta.glob<MarkdownInstance<Frontmatter>>(
+  "../../content/blogs/es/*.md",
+  { eager: true }
+);
+const matchKey = Object.keys(postFiles).find((path) =>
+  path.endsWith(`/${slug}.md`)
+);
+if (!matchKey) {
+  throw new Error(`No se encontró el post con slug "${slug}" en ${lang}`);
 }
+const { frontmatter, Content } = (postFiles as any)[matchKey];
 
-if (!post) {
-  throw new Error(`No se encontró el post con slug "${slug}"`);
-}
-
-const { frontmatter, Content } = post;
+// Formateamos la fecha en español
+const formattedDate = new Date(frontmatter.publishedAt).toLocaleDateString(
+  "es-MX",
+  dateFormatOptions
+);
 ---
 
 <Layout>
-  <div class="w-full bg-[var(--background)] text-[var(--foreground)]">
-    <article class="mx-auto max-w-3xl px-6 py-12">
-      <header class="mb-8">
-        <h1 class="text-4xl font-bold text-[var(--foreground)]">
-          {frontmatter.title}
-        </h1>
-        <p class="mt-2 text-sm text-[var(--muted-foreground)]">
-          {
-            new Date(frontmatter.publishedAt).toLocaleDateString("es-MX", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })
-          }
-          &nbsp;&middot;&nbsp;
-          <span class="italic">por {frontmatter.author}</span>
-        </p>
-
-        <div class="mt-6">
-          <img
-            src={frontmatter.mainImage}
-            alt={frontmatter.alt}
-            loading="lazy"
-            class="w-full rounded-2xl object-cover"
-          />
-        </div>
-
-        <div class="mt-4 flex flex-wrap gap-x-2 gap-y-1 text-xs">
-          {frontmatter.categories.map((cat) => (
-            <span
-              class="
-                rounded-full 
-                bg-[var(--secondary)] 
-                px-2 py-1 
-                font-medium 
-                text-[var(--secondary-foreground)]
-              "
-            >
-              {cat}
-            </span>
-          ))}
-        </div>
-      </header>
-
-      <hr class="mb-8 border-[var(--border)]" />
-
-      <div
-        class="
-          prose 
-          prose-lg 
-          mx-auto 
-          p-6 
-          rounded-lg 
-          text-[var(--foreground)] 
-          dark:prose-invert
-          prose-headings:text-[var(--foreground)]
-          prose-p:text-[var(--foreground)]
-          prose-li:text-[var(--foreground)]
-          prose-strong:text-[var(--foreground)]
-          prose-em:text-[var(--foreground)]
-          prose-a:text-[var(--primary)]
-          prose-blockquote:text-[var(--foreground)]
-          prose-ol:list-decimal
-          prose-ul:list-disc
-        "
-      >
-        <Content />
+  <article class="mx-auto max-w-3xl px-6 py-12">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-[var(--foreground)]">
+        {frontmatter.title}
+      </h1>
+      <p class="mt-2 text-sm text-[var(--muted-foreground)]">
+        {formattedDate} &middot; <span class="italic">{by} {frontmatter.author}</span>
+      </p>
+      {frontmatter.mainImage && (
+        <img
+          src={frontmatter.mainImage}
+          alt={frontmatter.alt}
+          loading="lazy"
+          class="w-full rounded-2xl object-cover mt-6"
+        />
+      )}
+      <div class="mt-4 flex flex-wrap gap-x-2 gap-y-1 text-xs">
+        {frontmatter.categories.map((cat: string) => (
+          <span class="rounded-full bg-[var(--secondary)] px-2 py-1 font-medium text-[var(--secondary-foreground)]">
+            {cat}
+          </span>
+        ))}
       </div>
-    </article>
-  </div>
+    </header>
+
+    <hr class="mb-8 border-[var(--border)]" />
+
+    <div class="prose prose-lg mx-auto p-6 rounded-lg text-[var(--foreground)] dark:prose-invert">
+      <Content />
+    </div>
+  </article>
 </Layout>

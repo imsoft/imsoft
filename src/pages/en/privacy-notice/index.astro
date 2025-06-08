@@ -1,0 +1,59 @@
+---
+import "../../../styles/global.css";
+import Layout from "../../../layouts/Layout.astro";
+import { getLangFromUrl } from "../../../i18n/utils";
+import { translations } from "../../../i18n/translations";
+
+const lang = getLangFromUrl(Astro.url);
+const { title, intro, sections, lastUpdated } = translations[lang].privacy;
+---
+
+<Layout>
+  <main class="bg-[var(--background)] text-[var(--foreground)]">
+    <div class="relative overflow-hidden py-16">
+      <div class="relative px-6 lg:px-8">
+        <div class="mx-auto max-w-prose text-lg">
+          <h1>
+            <span
+              class="block text-center text-lg font-semibold text-[var(--primary)]"
+            >
+              imSoft
+            </span>
+            <span
+              class="mt-2 block text-center text-3xl font-bold leading-8 tracking-tight text-[var(--foreground)] sm:text-4xl"
+            >
+              {title}
+            </span>
+          </h1>
+        </div>
+
+        <div
+          class="prose prose-lg max-w-screen-lg mx-auto mt-6
+                 bg-[var(--background)] p-6 rounded-lg
+                 text-[var(--foreground)] dark:prose-invert"
+        >
+          <p>{intro}</p>
+
+          {
+            sections.map((section) => (
+              <>
+                <h2>
+                  <strong class="text-[var(--foreground)]">
+                    {section.heading}
+                  </strong>
+                </h2>
+                <p>{section.content}</p>
+              </>
+            ))
+          }
+
+          <p>
+            <em class="text-[var(--muted-foreground)]">
+              {lastUpdated}
+            </em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

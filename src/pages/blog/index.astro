@@ -3,25 +3,14 @@ import "../../styles/global.css";
 import Layout from "../../layouts/Layout.astro";
 import type { MarkdownInstance } from "astro";
 import BlogCard from "../../components/blog/BlogCard.astro";
+import { getLangFromUrl } from "../../i18n/utils";
+import { translations } from "../../i18n/translations";
+import type { Frontmatter, PostEntry } from "../../interfaces/PostEntry";
+
+const lang = getLangFromUrl(Astro.url);
+const { heading, description } = translations[lang].blog;
 
 const allPostFiles = import.meta.glob("../../content/blogs/es/*.md", { eager: true });
-
-type Frontmatter = {
-  title: string;
-  slug: string;
-  author: string;
-  mainImage: string;
-  alt: string;
-  categories: string[];
-  publishedAt: string;
-  language: string;
-  excerpt?: string;
-};
-
-type PostEntry = {
-  slug: string;
-  frontmatter: Frontmatter;
-};
 
 const posts: PostEntry[] = Object.entries(allPostFiles).map(([filePath, module]) => {
   const { frontmatter } = module as MarkdownInstance<Frontmatter>;
@@ -60,13 +49,13 @@ posts.sort(
           class="text-4xl font-semibold tracking-tight text-[var(--foreground)] sm:text-5xl
                  opacity-0 animate-fade-in"
         >
-          Nuestro Blog
+          {heading}
         </h2>
         <p
           class="mt-2 text-lg text-[var(--muted-foreground)]
                  opacity-0 animate-fade-in-delay-200"
         >
-          Descubre las últimas entradas, tutoriales y noticias sobre Astro, Solid y más.
+          {description}
         </p>
       </div>
 
@@ -77,7 +66,7 @@ posts.sort(
         {posts.map(({ slug, frontmatter }, idx) => {
           const post = {
             title: frontmatter.title,
-            href: `/blog/${slug}`,
+            href: `/${lang === "es" ? "" : "en/"}blog/${slug}`,
             publishedAt: frontmatter.publishedAt,
             categories: frontmatter.categories,
             mainImage: frontmatter.mainImage,

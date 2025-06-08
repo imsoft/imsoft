@@ -1,8 +1,12 @@
 ---
 import "../../styles/global.css";
 import Layout from "../../layouts/Layout.astro";
+import { getLangFromUrl } from "../../i18n/utils";
+import { translations } from "../../i18n/translations";
 import ContactCard from "../../components/contact/ContactCard.astro";
-import { contactInfo } from "../../data/contactInfo";
+
+const lang = getLangFromUrl(Astro.url);
+const { heading, description, cards } = translations[lang].contact;
 ---
 
 <Layout>
@@ -20,13 +24,10 @@ import { contactInfo } from "../../data/contactInfo";
                 text-pretty
                 text-[var(--foreground)]"
             >
-              Contáctanos
+              {heading}
             </h2>
             <p class="mt-4 text-base/7 text-[var(--muted-foreground)]">
-              Ya sea que quieras colaborar con nosotros, solicitar prensa,
-              unirte a nuestro equipo o simplemente saludar, aquí encontrarás la
-              forma de hacerlo. Estamos siempre dispuestos a escuchar y
-              responder.
+              {description}
             </p>
           </div>
 
@@ -34,7 +35,7 @@ import { contactInfo } from "../../data/contactInfo";
             class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2 lg:gap-8"
           >
             {
-              contactInfo.map((item) => (
+              cards.map((item) => (
                 <ContactCard
                   title={item.title}
                   email={item.email}

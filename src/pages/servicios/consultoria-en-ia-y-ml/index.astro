@@ -3,96 +3,20 @@ import "../../../styles/global.css";
 import Layout from "../../../layouts/Layout.astro";
 import type { ServiceTemplateProps } from "../../../components/service/ServiceTemplate.astro";
 import ServiceTemplate from "../../../components/service/ServiceTemplate.astro";
+import { getLangFromUrl } from "../../../i18n/utils";
+import { translations } from "../../../i18n/translations";
 
-const serviceData: ServiceTemplateProps = {
-  imageUrl:
-    "https://res.cloudinary.com/https-imsoft-io/image/upload/v1747117146/imsoft-images/services/consultoria-en-ia-y-ml.jpg",
-  alt: "Servicio de Consultoría en IA y ML - imSoft",
-  title: "Servicio de Consultoría en IA y ML",
-  subtitle:
-    "Transforma tu negocio con inteligencia artificial y aprendizaje automático a medida.",
-  descriptions: [
-    "En imSoft brindamos consultoría especializada en Inteligencia Artificial (IA) y Machine Learning (ML) para empresas que desean aprovechar el poder de los datos y automatizar procesos críticos.",
-    "Nuestro enfoque combina análisis de datos, desarrollo de modelos predictivos y despliegue de soluciones IA/ML en producción, garantizando resultados medibles y escalables.",
-  ],
-  primaryActionText: "Solicitar Cotización",
-  primaryActionHref: `mailto:sales@imsoft.io?subject=${encodeURIComponent(
-    "Cotización: Servicio de Consultoría en IA y ML"
-  )}&body=${encodeURIComponent(
-    "Hola equipo de imSoft,%0A%0AMe interesa recibir una cotización para el Servicio de Consultoría en IA y ML.%0APor favor, envíenme detalles sobre servicios, tarifas y disponibilidad.%0A%0AGracias."
-  )}`,
+const lang = getLangFromUrl(Astro.url);
+const slug = Astro.url.pathname
+  .split("/")
+  .filter((segment) => segment.length > 0)
+  .pop()!;
 
-  secondaryActionText: "Ver Casos de Éxito",
-  secondaryActionHref: "/portafolio",
-  features: [
-    { text: "Diagnóstico y evaluación de madurez de datos" },
-    { text: "Diseño de arquitecturas IA/ML escalables (nube on-premise)" },
-    {
-      text: "Entrenamiento y validación de modelos predictivos personalizados",
-    },
-    { text: "Integración de APIs de inferencia y pipelines de datos" },
-    { text: "Monitoreo continuo y mantenimiento de modelos en producción" },
-  ],
-  methodologySteps: [
-    {
-      title: "Evaluación del Entorno",
-      description:
-        "Analizamos la infraestructura actual, calidad de datos y objetivos de negocio para definir un roadmap IA/ML personalizado.",
-    },
-    {
-      title: "Recolección y Preparación de Datos",
-      description:
-        "Extraemos, limpiamos y transformamos datos relevantes para entrenar modelos de Machine Learning con alta precisión.",
-    },
-    {
-      title: "Desarrollo de Modelos",
-      description:
-        "Creamos modelos de aprendizaje supervisado, no supervisado o reforzado según tus necesidades, utilizando herramientas como Python (Scikit-Learn, TensorFlow, PyTorch).",
-    },
-    {
-      title: "Validación y Pruebas",
-      description:
-        "Realizamos pruebas de rendimiento, validación cruzada y ajuste de hiperparámetros para asegurar la robustez y generalización del modelo.",
-    },
-    {
-      title: "Despliegue y Mantenimiento",
-      description:
-        "Implementamos los modelos en entornos productivos (AWS, Azure, GCP o servidores on-premise) y configuramos pipelines automáticos para actualización continua.",
-    },
-  ],
-  faqs: [
-    {
-      question: "¿Qué diferencia hay entre IA y Machine Learning?",
-      answer:
-        "La Inteligencia Artificial (IA) es un campo amplio que abarca sistemas capaces de realizar tareas que normalmente requieren inteligencia humana. Machine Learning (ML) es una subárea de la IA que se enfoca en algoritmos que aprenden de los datos para hacer predicciones o decisiones sin estar programados explícitamente.",
-    },
-    {
-      question: "¿Cómo identifican los casos de uso adecuados para IA/ML?",
-      answer:
-        "Partimos de objetivos de negocio concretos (reducción de costos, mejora de productividad, optimización de marketing) y luego analizamos la disponibilidad y calidad de datos para definir modelos adecuados que generen un ROI claro.",
-    },
-    {
-      question: "¿Qué tecnologías utilizan para el desarrollo de modelos?",
-      answer:
-        "Nuestro equipo usa Python, con librerías como Scikit-Learn, TensorFlow, Keras y PyTorch. Para procesamiento de grandes volúmenes de datos, empleamos herramientas como Pandas, Spark y servicios en la nube (AWS Sagemaker, Azure ML, GCP AI Platform).",
-    },
-    {
-      question: "¿Cuánto tiempo toma ver resultados con un proyecto IA/ML?",
-      answer:
-        "Para un proyecto básico de ML (por ejemplo, predicción de demanda o análisis de churn), se estima un periodo de 8 a 12 semanas, incluyendo recolección de datos, entrenamiento, validación y despliegue inicial. Proyectos más complejos con deep learning o pipelines avanzados pueden requerir de 12 a 20 semanas.",
-    },
-    {
-      question: "¿Cómo aseguran la fiabilidad y ética de los modelos?",
-      answer:
-        "Implementamos pruebas de sesgo y fairness, validamos la explicabilidad con técnicas como SHAP o LIME, y seguimos prácticas de documentación y auditoría para garantizar transparencia y alineación con normativas de privacidad.",
-    },
-    {
-      question: "¿Ofrecen soporte y actualización de modelos a largo plazo?",
-      answer:
-        "Sí. Contamos con paquetes de mantenimiento y monitoreo continuo para garantizar que los modelos se mantengan precisos con nuevos datos, incluyendo recalibración y retraining automático según se requiera.",
-    },
-  ],
-};
+const serviceData = (translations as any)[lang].servicesTemplates[slug] as ServiceTemplateProps;
+
+if (!serviceData) {
+  throw new Error(`No service template for "${slug}" in "${lang}"`);
+}
 ---
 
 <Layout>
