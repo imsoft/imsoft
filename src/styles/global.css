@@ -19,7 +19,7 @@
   --accent: oklch(0.967 0.001 286.375);
   --accent-foreground: oklch(0.21 0.006 285.885);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
+  --border: oklch(0.8 0.01 286.32);
   --input: oklch(0.92 0.004 286.32);
   --ring: oklch(0.623 0.214 259.815);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -35,6 +35,10 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.623 0.214 259.815);
+  --tw-prose-body: oklch(0.141 0.005 285.823);
+  --tw-prose-headings: oklch(0.141 0.005 285.823);
+  --tw-prose-links: oklch(0.141 0.005 285.823);
+  --tw-prose-bullets: oklch(0.141 0.005 285.823);
 }
 
 .dark {
@@ -69,6 +73,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.488 0.243 264.376);
+  --tw-prose-body: oklch(0.141 0.005 285.823);
+  --tw-prose-headings: oklch(0.141 0.005 285.823);
+  --tw-prose-links: oklch(0.141 0.005 285.823);
+  --tw-prose-bullets: oklch(0.141 0.005 285.823);
 }
 
 @keyframes fadeIn {
@@ -112,4 +120,20 @@
 
 .animate-fade-in-delay-1400 {
   animation: fadeIn 0.6s ease-out 1.4s forwards;
+}
+
+.prose hr {
+  border-color: var(--border) !important;
+}
+
+.prose a,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6,
+.prose strong,
+.prose blockquote {
+  color: var(--foreground) !important;
 }
