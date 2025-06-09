@@ -48,6 +48,8 @@ export default function Header(props: HeaderProps): JSX.Element {
       "the-best-ideas-to-digitize-your-business-this-year-and-how-to-start",
     "que-necesita-una-tienda-en-linea-para-vender-mas-en-2025":
       "what-does-an-online-store-need-to-sell-more-in-2025",
+      "aplicacion-web-o-movil-como-elegir-la-mejor-para-tu-negocio": "web-app-or-mobile-app-how-to-choose-the-best-for-your-business",
+      "como-funciona-el-seo-local-y-como-aplicarlo-a-tu-negocio": "how-local-seo-works-and-how-to-apply-it-to-your-business",
   } as const;
   const blogSlugEN2ES = Object.fromEntries(
     Object.entries(blogSlugES2EN).map(([es, en]) => [en, es])
