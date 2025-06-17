@@ -56,8 +56,8 @@ export default function Header(props: HeaderProps): JSX.Element {
       "is-it-worth-investing-in-google-ads-pros-cons-and-how-much-you-should-invest",
     "nuestro-proceso-paso-a-paso-para-crear-un-sitio-web-exitoso-en-imsoft":
       "our-step-by-step-process-to-create-a-successful-website-at-imsoft",
-    "5-funcionalidades-que-toda-aplicacion-web-para-negocios-debe-tener":
-      "5-features-every-business-web-application-must-have",
+    "cinco-funcionalidades-que-toda-aplicacion-web-para-negocios-debe-tener":
+      "five-features-every-business-web-application-must-have",
     "como-usar-el-analisis-de-datos-para-tomar-decisiones-inteligentes-incluso-si-no-eres-tecnico":
       "how-to-use-data-analysis-to-make-smart-decisions-even-if-youre-not-technical",
   } as const;

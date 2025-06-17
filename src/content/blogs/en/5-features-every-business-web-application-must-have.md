@@ -1,5 +1,5 @@
 ---
-title: "🛠️ "5 Features Every Business Web Application Must Have""
+title: "🛠️ 5 Features Every Business Web Application Must Have"
 slug: "5-features-every-business-web-application-must-have"
 author: "imSoft"
 mainImage: "https://res.cloudinary.com/https-imsoft-io/image/upload/v1750115809/imsoft-images/articles/5-funcionalidades-que-toda-aplicacion-web-para-negocios-debe-tener.png"
