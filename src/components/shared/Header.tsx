@@ -60,6 +60,10 @@ export default function Header(props: HeaderProps): JSX.Element {
       "five-features-every-business-web-application-must-have",
     "como-usar-el-analisis-de-datos-para-tomar-decisiones-inteligentes-incluso-si-no-eres-tecnico":
       "how-to-use-data-analysis-to-make-smart-decisions-even-if-youre-not-technical",
+    "tu-sitio-no-convierte-10-senales-de-que-necesitas-redisenarlo-ya":
+      "is-your-website-not-converting-10-signs-you-need-a-redesign-now",
+    "herramientas-gratuitas-que-todo-emprendedor-digital-debe-conocer-en-2025":
+      "free-tools-every-digital-entrepreneur-should-know-in-2025",
   } as const;
   const blogSlugEN2ES = Object.fromEntries(
     Object.entries(blogSlugES2EN).map(([es, en]) => [en, es])
