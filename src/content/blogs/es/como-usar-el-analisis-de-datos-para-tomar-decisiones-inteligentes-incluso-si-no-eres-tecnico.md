@@ -1,5 +1,5 @@
 ---
-title: "📊 \"Cómo usar el análisis de datos para tomar decisiones inteligentes (incluso si no eres técnico)\""
+title: "📊 Cómo usar el análisis de datos para tomar decisiones inteligentes (incluso si no eres técnico)"
 slug: "como-usar-el-analisis-de-datos-para-tomar-decisiones-inteligentes-incluso-si-no-eres-tecnico"
 author: "imSoft"
 mainImage: "https://res.cloudinary.com/https-imsoft-io/image/upload/v1750115994/imsoft-images/articles/como-usar-el-analisis-de-datos-para-tomar-decisiones-inteligentes-incluso-si-no-eres-tecnico.png"

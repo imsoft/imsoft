@@ -1,5 +1,5 @@
 ---
-title: "📊 \"How to Use Data Analysis to Make Smart Decisions (Even If You’re Not Technical)\""
+title: "📊 How to Use Data Analysis to Make Smart Decisions (Even If You’re Not Technical)"
 slug: "how-to-use-data-analysis-to-make-smart-decisions-even-if-youre-not-technical"
 author: "imSoft"
 mainImage: "https://res.cloudinary.com/https-imsoft-io/image/upload/v1750115994/imsoft-images/articles/como-usar-el-analisis-de-datos-para-tomar-decisiones-inteligentes-incluso-si-no-eres-tecnico.png"
