@@ -10,29 +10,33 @@ import type { Frontmatter, PostEntry } from "../../interfaces/PostEntry";
 const lang = getLangFromUrl(Astro.url);
 const { heading, description } = translations[lang].blog;
 
-const allPostFiles = import.meta.glob("../../content/blogs/es/*.md", { eager: true });
-
-const posts: PostEntry[] = Object.entries(allPostFiles).map(([filePath, module]) => {
-  const { frontmatter } = module as MarkdownInstance<Frontmatter>;
-  const filename = filePath.split("/").pop()!;
-  const derivedSlug = filename.replace(/\.md$/, "");
-  const slug = frontmatter.slug || derivedSlug;
-
-  return {
-    slug,
-    frontmatter: {
-      title: frontmatter.title,
-      slug,
-      author: frontmatter.author,
-      mainImage: frontmatter.mainImage,
-      alt: frontmatter.alt,
-      categories: frontmatter.categories,
-      publishedAt: frontmatter.publishedAt,
-      language: frontmatter.language,
-      excerpt: frontmatter.excerpt,
-    },
-  };
+const allPostFiles = import.meta.glob("../../content/blogs/es/*.md", {
+  eager: true,
 });
+
+const posts: PostEntry[] = Object.entries(allPostFiles).map(
+  ([filePath, module]) => {
+    const { frontmatter } = module as MarkdownInstance<Frontmatter>;
+    const filename = filePath.split("/").pop()!;
+    const derivedSlug = filename.replace(/\.md$/, "");
+    const slug = frontmatter.slug || derivedSlug;
+
+    return {
+      slug,
+      frontmatter: {
+        title: frontmatter.title,
+        slug,
+        author: frontmatter.author,
+        mainImage: frontmatter.mainImage,
+        alt: frontmatter.alt,
+        categories: frontmatter.categories,
+        publishedAt: frontmatter.publishedAt,
+        language: frontmatter.language,
+        excerpt: frontmatter.excerpt,
+      },
+    };
+  }
+);
 
 posts.sort(
   (a, b) =>
@@ -63,22 +67,24 @@ posts.sort(
         class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20
                lg:mx-0 lg:max-w-none lg:grid-cols-3"
       >
-        {posts.map(({ slug, frontmatter }, idx) => {
-          const post = {
-            title: frontmatter.title,
-            href: `/${lang === "es" ? "" : "en/"}blog/${slug}`,
-            publishedAt: frontmatter.publishedAt,
-            categories: frontmatter.categories,
-            mainImage: frontmatter.mainImage,
-            alt: frontmatter.alt,
-            author: frontmatter.author,
-            excerpt: frontmatter.excerpt,
-          };
+        {
+          posts.map(({ slug, frontmatter }, idx) => {
+            const post = {
+              title: frontmatter.title,
+              href: `/${lang === "es" ? "" : "en/"}blog/${slug}`,
+              publishedAt: frontmatter.publishedAt,
+              categories: frontmatter.categories,
+              mainImage: frontmatter.mainImage,
+              alt: frontmatter.alt,
+              author: frontmatter.author,
+              excerpt: frontmatter.excerpt,
+            };
 
-          const delay = idx === 0 ? 0 : idx * 200;
+            const delay = 600 + Math.floor(idx / 3) * 200;
 
-          return <BlogCard post={post} delay={delay} />;
-        })}
+            return <BlogCard post={post} delay={delay} />;
+          })
+        }
       </div>
     </div>
   </div>
