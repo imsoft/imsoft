@@ -191,6 +191,7 @@ export default function Header(props: HeaderProps): JSX.Element {
           <img
             class="h-14 w-auto"
             src="https://res.cloudinary.com/https-imsoft-io/image/upload/v1740963749/imsoft-images/imsoft/logo-imsoft-blue.png"
+            loading="lazy"
             alt="imSoft Logo"
           />
         </a>
@@ -283,6 +284,7 @@ export default function Header(props: HeaderProps): JSX.Element {
                 <img
                   class="h-14 w-auto"
                   src="https://res.cloudinary.com/https-imsoft-io/image/upload/v1740963749/imsoft-images/imsoft/logo-imsoft-blue.png"
+                  loading="lazy"
                   alt="imSoft Logo"
                 />
               </a>

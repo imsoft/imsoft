@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import Header from "../components/shared/Header";
 import Footer from "../components/shared/Footer.astro";
+import SEO from "../components/SEO.astro";
 
 import { getLangFromUrl } from "../i18n/utils";
 import { translations } from "../i18n/translations";
@@ -36,9 +37,39 @@ const navItems: HeaderProps["navItems"] = translations[lang].nav;
     <link rel="sitemap" href="/sitemap-0.xml" />
 
     <meta name="generator" content={Astro.generator} />
-    <title>imSoft</title>
 
     <ClientRouter />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "imSoft",
+      "url": "https://imsoft.io",
+      "logo": "https://res.cloudinary.com/https-imsoft-io/image/upload/v1740963749/imsoft-images/imsoft/logo-imsoft-blue.png",
+      "email": "contacto@imsoft.io",
+      "telephone": "+52-33-2536-5558",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+52-33-2536-5558",
+        "contactType": "customer service",
+        "email": "contacto@imsoft.io",
+        "areaServed": "MX",
+        "availableLanguage": ["Spanish", "English"]
+      },
+      "sameAs": [
+        "https://www.facebook.com/weareimsoft",
+        "https://www.instagram.com/weareimsoft/",
+        "https://www.linkedin.com/company/imsoft/",
+        "https://www.threads.net/@weareimsoft",
+        "https://x.com/weareimsoft",
+        "https://www.tiktok.com/@weareimsoft",
+        "https://api.whatsapp.com/message/6P7VAOCL442IH1?autoload=1&app_absent=0",
+        "https://open.spotify.com/show/6ghYAam2Tkc3pLfiuc7wFK?si=b974db1527944207",
+        "https://www.youtube.com/@weareimsoft"
+      ]
+    }
+    </script>
 
     <script>
       (function () {

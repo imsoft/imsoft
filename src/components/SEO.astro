@@ -1,0 +1,112 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+  url?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  section?: string;
+  tags?: string[];
+  canonical?: string;
+}
+
+const {
+  title = "imSoft - Desarrollo de Software y Soluciones Digitales",
+  description = "Somos una empresa especializada en desarrollo de software, aplicaciones web y móviles, y soluciones digitales para empresas. Transformamos ideas en realidad digital.",
+  keywords = "desarrollo de software, aplicaciones web, aplicaciones móviles, consultoría tecnológica, México",
+  image = "https://res.cloudinary.com/https-imsoft-io/image/upload/v1740963749/imsoft-images/imsoft/logo-imsoft-blue.png",
+  url = Astro.url.href,
+  type = "website",
+  publishedTime,
+  modifiedTime,
+  author = "imSoft",
+  section,
+  tags = [],
+  canonical,
+} = Astro.props;
+
+const siteName = "imSoft";
+const twitterHandle = "@imsoft_mx";
+const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+const canonicalUrl = canonical || url;
+---
+
+<!-- Meta tags básicos -->
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<meta name="author" content={author} />
+<meta name="robots" content="index, follow" />
+<meta name="language" content="es" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={url} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content="es_MX" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={url} />
+<meta property="twitter:title" content={fullTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={image} />
+<meta property="twitter:site" content={twitterHandle} />
+<meta property="twitter:creator" content={twitterHandle} />
+
+<!-- Article specific meta tags -->
+{type === "article" && (
+  <>
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    {author && <meta property="article:author" content={author} />}
+    {section && <meta property="article:section" content={section} />}
+    {tags.length > 0 && tags.map((tag) => <meta property="article:tag" content={tag} />)}
+  </>
+)}
+
+<!-- Additional SEO meta tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#3B82F6" />
+<meta name="msapplication-TileColor" content="#3B82F6" />
+
+<!-- Structured Data / Schema.org -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": type === "article" ? "Article" : "WebSite",
+  "name": fullTitle,
+  "description": description,
+  "url": url,
+  "image": image,
+  "publisher": {
+    "@type": "Organization",
+    "name": siteName,
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://res.cloudinary.com/https-imsoft-io/image/upload/v1740963749/imsoft-images/imsoft/logo-imsoft-blue.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": url
+  },
+  ...(type === "article" && {
+    "author": {
+      "@type": "Person",
+      "name": author
+    },
+    "datePublished": publishedTime,
+    "dateModified": modifiedTime || publishedTime,
+    "headline": title
+  })
+})} /> 

@@ -1,6 +1,7 @@
 ---
 import "../../styles/global.css";
 import Layout from "../../layouts/Layout.astro";
+import SEO from "../../components/SEO.astro";
 import { translations } from "../../i18n/translations";
 import type { MarkdownInstance } from "astro";
 import type { Frontmatter } from "../../interfaces/PostEntry";
@@ -45,7 +46,19 @@ const formattedDate = new Date(frontmatter.publishedAt).toLocaleDateString(
 ---
 
 <Layout>
-  <article class="mx-auto max-w-3xl py-28 sm:py-32">
+  <SEO 
+    title={frontmatter.title}
+    description={frontmatter.description || frontmatter.excerpt || `Lee nuestro artículo sobre ${frontmatter.title}. ${frontmatter.author} comparte insights valiosos sobre desarrollo de software y tecnología.`}
+    keywords={`${frontmatter.categories.join(", ")}, desarrollo de software, tecnología, ${frontmatter.author}`}
+    type="article"
+    publishedTime={frontmatter.publishedAt}
+    modifiedTime={frontmatter.updatedAt || frontmatter.publishedAt}
+    author={frontmatter.author}
+    section="Blog"
+    tags={frontmatter.categories}
+    image={frontmatter.mainImage}
+  />
+  <article class="mx-auto max-w-3xl px-6 py-12">
     <header class="mb-8">
       <h1 class="text-4xl font-bold text-[var(--foreground)]">
         {frontmatter.title}

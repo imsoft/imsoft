@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Layout from "../layouts/Layout.astro";
+import SEO from "../components/SEO.astro";
 import Hero from "../components/Hero.astro";
 import Features from "../components/Features.astro";
 import Testimonials from "../components/Testimonials.astro";
@@ -40,6 +41,12 @@ const {
 ---
 
 <Layout>
+  <SEO 
+    title="imSoft"
+    description="Somos una empresa especializada en desarrollo de software, aplicaciones web y móviles, y soluciones digitales para empresas. Transformamos ideas en realidad digital con tecnología de vanguardia."
+    keywords="desarrollo de software, aplicaciones web, aplicaciones móviles, consultoría tecnológica, desarrollo de sitios web, tiendas en línea, México, Guadalajara"
+    type="website"
+  />
   <Hero {title} {description} {bullets} />
   <Features
     heading={heading}
